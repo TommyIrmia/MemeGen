@@ -46,8 +46,8 @@ var gMeme = {
         color: '#000000',
         fill: '#ffffff',
         font: 'impact',
-        posX: 150,
-        posY: 150
+        posX: 175,
+        posY: 75
     }]
 }
 
@@ -61,6 +61,10 @@ function isUserSelected() {
 
 function getMeme() {
     return gMeme;
+}
+
+function getImgs() {
+    return gImgs;
 }
 
 function getImg() {
@@ -87,7 +91,7 @@ function setImgId(id) {
 function setTextPos(diff, pos) {
     const line = getLine();
     if (!diff) {
-        line.posX = 100;
+        line.posX = 175;
     }
     line[pos] += diff;
 }

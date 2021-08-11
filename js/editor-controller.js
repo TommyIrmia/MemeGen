@@ -18,6 +18,7 @@ function onInit() {
         document.querySelector('.editor-container').classList.remove('none');
     } else {
         document.querySelector('.editor-container').classList.add('none');
+        renderGallery();
     }
 
 }
