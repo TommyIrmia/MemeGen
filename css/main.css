@@ -119,7 +119,7 @@ button:hover {
     gap: 10px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-areas: "input input input input input" ". btn1 btn2 btn3 ."
+    grid-template-areas: "input input input input input" "up-btn down-btn btn1 btn2 btn3 "
 }
 
 .text-input {
@@ -128,6 +128,14 @@ button:hover {
 
 .text-choose {
     grid-area: btn1;
+}
+
+.up-btn {
+    grid-area: up-btn;
+}
+
+.down-btn {
+    grid-area: down-btn;
 }
 
 .text-add {

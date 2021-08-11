@@ -44,7 +44,9 @@ var gMeme = {
         size: 50,
         align: 'left',
         color: 'red',
-        font: 'impact'
+        font: 'impact',
+        posX: 100,
+        posY: 100
     }]
 }
 
@@ -59,7 +61,6 @@ function getMeme() {
 function getImg() {
     const imgId = gMeme.selectedImgId;
     const img = gImgs.find((img) => {
-        console.log(img.id, imgId);
         return imgId === img.id;
     })
     return img.url;
@@ -76,4 +77,8 @@ function changeFontSize(size) {
 function setImgId(id) {
     gMeme.selectedImgId = id;
     isSelectedImg = true;
+}
+
+function setTextPos(diff) {
+    gMeme.lines[0].posY += diff;
 }

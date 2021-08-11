@@ -14,7 +14,7 @@ function onInit() {
         const selectedImg = getImg();
         drawImg(selectedImg);
 
-        setTimeout(drawText, 1, 100, 100);
+        setTimeout(drawText, 1);
 
         const line = gCurrMeme.lines[0];
         document.querySelector('[name="text"]').value = line.txt;
@@ -62,29 +62,33 @@ function drawImg(selectedImg) {
     }
 }
 
-function drawText(x, y) {
+function drawText() {
     const line = gCurrMeme.lines[0];
     gCtx.fillStyle = 'white'
     gCtx.font = `${line.size}px ${line.font}`;
-    gCtx.fillText(line.txt, x, y - 5);
+    gCtx.fillText(line.txt, line.posX, line.posY - 5);
 
     gCtx.lineWidth = 3;
     gCtx.strokeStyle = line.color;
     gCtx.fillStyle = 'white'
     gCtx.font = `${line.size}px ${line.font}`;
-    gCtx.fillText(line.txt, x, y);
-    gCtx.strokeText(line.txt, x, y);
+    gCtx.fillText(line.txt, line.posX, line.posY);
+    gCtx.strokeText(line.txt, line.posX, line.posY);
 }
 
 function onChangeText(txt) {
     changeText(txt);
+    renderCanvas();
+}
+
+
+function renderCanvas() {
     gCtx.save();
     const selectedImg = getImg();
     drawImg(selectedImg);
-    setTimeout(drawText, 1, 100, 100);
+    setTimeout(drawText, 1);
     gCtx.restore();
 }
-
 // function onAddText() {
 //     let txt = document.querySelector('[name="text"]').value;
 //     if (!txt) {
@@ -100,9 +104,15 @@ function onChangeText(txt) {
 //     })
 // }
 
-
-
 function onFontSize(diff) {
-    let size = (diff === '+') ? 10 : -10;
+    const size = (diff === '+') ? 2 : -2;
     changeFontSize(size);
+    renderCanvas();
+}
+
+function onMoveText(dir) {
+    const diff = (dir === "up") ? -10 : 10;
+    setTextPos(diff);
+    renderCanvas();
+
 }
