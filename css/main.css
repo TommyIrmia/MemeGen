@@ -15,6 +15,11 @@
     src: url(../fonts/montserrat/Montserrat-Thin.ttf);
 }
 
+@font-face {
+    font-family: mont-bold;
+    src: url(../fonts/montserrat/Montserrat-Bold.ttf);
+}
+
 
 /* BASE */
 
@@ -48,10 +53,11 @@ button {
     background-color: white;
     border: none;
     border-radius: 12px;
+    transition: 0.5s;
 }
 
 button:hover {
-    opacity: 0.7;
+    background-color: lightgray;
 }
 
 
@@ -64,10 +70,11 @@ button:hover {
     font-size: 1.1875rem;
 }
 
-.header span {
-    color: #adabab;
-    font-size: 2rem;
-    font-family: mont-thin;
+.header .seperator {
+    height: 2rem;
+    width: 1px;
+    background-color: #8a8a8a;
+    margin: 0 10px;
 }
 
 
@@ -76,6 +83,7 @@ button:hover {
 .editor-container {
     padding: 25px 50px;
     background-color: #e3e3e3;
+    display: none;
 }
 
 
@@ -83,6 +91,7 @@ button:hover {
 
 .editor-container .canvas {
     background-color: white;
+    background-size: cover;
     margin-inline-end: 70px;
 }
 
@@ -194,6 +203,79 @@ button:hover {
 }
 
 
+/* GALLERY-CONTAINER */
+
+.gallery-container {
+    color: black;
+}
+
+
+/* search bar */
+
+.gallery-container .search-bar {
+    height: 100px;
+    padding: 0 50px;
+}
+
+.gallery-container .search-bar input {
+    border-radius: unset;
+    font-weight: 500;
+}
+
+.gallery-container .search {
+    border-bottom: black 2px solid;
+}
+
+.gallery-container .search-bar img {
+    height: 1.25rem;
+}
+
+
+/* imgs container */
+
+.gallery-container .imgs-container {
+    padding: 25px 50px;
+    background-color: #e3e3e3;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.imgs-container .img {
+    width: 350px;
+}
+
+.imgs-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+/* me */
+
+.me {
+    margin: auto;
+    height: 500px;
+}
+
+.me img {
+    height: 322px;
+    border-radius: 50%;
+    margin-inline-end: 2.5rem;
+}
+
+.me .desc {
+    width: 500px;
+}
+
+.desc h2 {
+    font-family: mont-bold;
+    font-size: 1.5625rem;
+    margin: 0 0 0.875rem;
+}
+
+
 /* FOOTER */
 
 .footer {
@@ -240,4 +322,8 @@ button:hover {
 
 .align-center {
     align-items: center;
+}
+
+.none {
+    display: none;
 }

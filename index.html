@@ -9,12 +9,13 @@
     <title>MemeGen</title>
 </head>
 
-<body>
+<body onload="onInit()">
     <header class="header flex space-between align-center">
         <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
-        <nav class="main-nav">
-            <a href="#">Gallery <span>|</span></a>
-            <a href="#">About</a>
+        <nav class="main-nav flex align-center">
+            <a class="nav-item" href="#">Gallery</a>
+            <div class="seperator"></div>
+            <a class="nav-item" href="#">About</a>
         </nav>
     </header>
 
@@ -24,13 +25,13 @@
             <section class="text-tools grid">
                 <input type="text" name="text" class="text-input">
                 <button class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
-                <button class="tool-btn text-add"><img src="DESIGN/ICONS/add.png"></button>
+                <button onclick="onAddText()" class="tool-btn text-add"><img src="DESIGN/ICONS/add.png"></button>
                 <button class="tool-btn text-remove"><img src="DESIGN/ICONS/trash.png"></button>
             </section>
 
             <section class="style-tools grid">
-                <button class="tool-btn style-inc"><img src="DESIGN/ICONS/increase font - icon.png"></button>
-                <button class="tool-btn style-dec"><img src="DESIGN/ICONS/decrease font - icon.png"></button>
+                <button onclick="onFontSize('+')" class="tool-btn style-inc"><img src="DESIGN/ICONS/increase font - icon.png"></button>
+                <button onclick="onFontSize('-')" class="tool-btn style-dec"><img src="DESIGN/ICONS/decrease font - icon.png"></button>
                 <button class="tool-btn style-left"><img src="DESIGN/ICONS/align-to-left.png"></button>
                 <button class="tool-btn style-center"><img src="DESIGN/ICONS/center-text-alignment.png"></button>
                 <button class="tool-btn style-right"><img src="DESIGN/ICONS/align-to-right.png"></button>
@@ -59,6 +60,34 @@
         </div>
     </main>
 
+    <main class="none gallery-container">
+        <nav class="search-bar flex align-center space-between">
+            <div class="search">
+                <label for="search">
+        <input id="search" type="search" name="search" placeholder="Enter search keyword">
+        <img src="DESIGN/ICONS/search-icon.png"></label>
+            </div>
+            <div class="search-words">Funny Animals Celeb</div>
+        </nav>
+
+        <section class="imgs-container grid">
+            <div class="img"><img src="imgs/meme-imgs/1.jpg" alt=""></div>
+            <div class="img"><img src="imgs/meme-imgs/2.jpg" alt=""></div>
+            <div class="img"><img src="imgs/meme-imgs/3.jpg" alt=""></div>
+            <div class="img"><img src="imgs/meme-imgs/4.jpg" alt=""></div>
+            <div class="img"><img src="imgs/meme-imgs/5.jpg" alt=""></div>
+            <div class="img"><img src="imgs/meme-imgs/6.jpg" alt=""></div>
+        </section>
+
+        <section class=" me flex align-center justify-center">
+            <div class="img"><img src="imgs/me.jpg"></div>
+            <div class="desc">
+                <h2>Tommy Irmia</h2>
+                <p>is a student at Coding Academy - Best place to become a full-stack developer. AND experience tremendous anxiety that will lead to a heart attack</p>
+                <div><a href="$">F</a><a href="$">L</a><a href="$">G</a></div>
+            </div>
+        </section>
+    </main>
     <footer class="footer flex align-center justify-center">
         <div class="footer-content">
             <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
@@ -67,7 +96,7 @@
     </footer>
 
     <script src="js/util.js"></script>
-    <script src="js/editor-service.js"></script>
+    <script src="js/meme-service.js"></script>
     <script src="js/gallery-service.js"></script>
     <script src="js/editor-controller.js"></script>
     <script src="js/gallery-controller.js"></script>
