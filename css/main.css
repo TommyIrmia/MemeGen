@@ -243,6 +243,7 @@ button:hover {
 
 .imgs-container .img {
     width: 350px;
+    cursor: pointer;
 }
 
 .imgs-container img {
