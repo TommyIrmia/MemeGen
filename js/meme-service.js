@@ -41,13 +41,18 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [{
         txt: 'Change text here',
-        size: 50,
-        align: 'left',
-        color: 'red',
+        size: 30,
+        stroke: true,
+        color: '#000000',
+        fill: '#ffffff',
         font: 'impact',
-        posX: 100,
-        posY: 100
+        posX: 150,
+        posY: 150
     }]
+}
+
+function getLine() {
+    return gMeme.lines[0];
 }
 
 function isUserSelected() {
@@ -79,6 +84,63 @@ function setImgId(id) {
     isSelectedImg = true;
 }
 
-function setTextPos(diff) {
-    gMeme.lines[0].posY += diff;
+function setTextPos(diff, pos) {
+    const line = getLine();
+    if (!diff) {
+        line.posX = 100;
+    }
+    line[pos] += diff;
+}
+
+function toggleStroke() {
+    const line = getLine();
+    line.stroke = !line.stroke;
+    console.log(line.stroke);
+}
+
+function changeColor(type, val) {
+    const line = getLine();
+    line[type] = val;
+}
+
+function changeFont(val) {
+    const line = getLine();
+    line.font = val;
+    console.log(line.font);
+}
+
+
+function uploadImg() {
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
+
+        document.querySelector('.share-container').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a>`
+    }
+    doUploadImg(imgDataUrl, onSuccess);
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+
+    const formData = new FormData();
+    formData.append('img', imgDataUrl)
+
+    fetch('//ca-upload.com/here/upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then((url) => {
+            console.log('Got back live url:', url);
+            onSuccess(url)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
 }

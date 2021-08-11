@@ -20,6 +20,21 @@
     src: url(../fonts/montserrat/Montserrat-Bold.ttf);
 }
 
+@font-face {
+    font-family: bangers;
+    src: url(../fonts/Bangers/Bangers-Regular.ttf);
+}
+
+@font-face {
+    font-family: knewave;
+    src: url(../fonts/Knewave/Knewave-Regular.ttf);
+}
+
+@font-face {
+    font-family: sigmar;
+    src: url(../fonts/Sigmar_One/SigmarOne-Regular.ttf);
+}
+
 
 /* BASE */
 
@@ -187,6 +202,21 @@ button:hover {
 
 .select-font {
     grid-area: select;
+}
+
+.color-picker {
+    position: relative;
+    display: inline-block;
+}
+
+.color-picker [name="color"] {
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 

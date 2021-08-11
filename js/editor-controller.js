@@ -11,12 +11,9 @@ function onInit() {
         gCtx = gElCanvas.getContext('2d');
         addListeners()
 
-        const selectedImg = getImg();
-        drawImg(selectedImg);
+        renderCanvas()
 
-        setTimeout(drawText, 1);
-
-        const line = gCurrMeme.lines[0];
+        const line = getLine();
         document.querySelector('[name="text"]').value = line.txt;
         document.querySelector('.editor-container').classList.remove('none');
     } else {
@@ -63,17 +60,18 @@ function drawImg(selectedImg) {
 }
 
 function drawText() {
-    const line = gCurrMeme.lines[0];
-    gCtx.fillStyle = 'white'
+    const line = getLine();
+    console.log(line.font);
+    gCtx.fillStyle = 'gray'
     gCtx.font = `${line.size}px ${line.font}`;
     gCtx.fillText(line.txt, line.posX, line.posY - 5);
 
     gCtx.lineWidth = 3;
     gCtx.strokeStyle = line.color;
-    gCtx.fillStyle = 'white'
+    gCtx.fillStyle = line.fill;
     gCtx.font = `${line.size}px ${line.font}`;
     gCtx.fillText(line.txt, line.posX, line.posY);
-    gCtx.strokeText(line.txt, line.posX, line.posY);
+    if (line.stroke) gCtx.strokeText(line.txt, line.posX, line.posY);
 }
 
 function onChangeText(txt) {
@@ -112,7 +110,44 @@ function onFontSize(diff) {
 
 function onMoveText(dir) {
     const diff = (dir === "up") ? -10 : 10;
-    setTextPos(diff);
+    setTextPos(diff, 'posY');
     renderCanvas();
+}
 
+
+function onAlignText(dir) {
+    let diff;
+    switch (dir) {
+        case 'left':
+            diff = -40;
+            break;
+        case 'right':
+            diff = 40;
+            break;
+        case 'center':
+            diff = false;
+            break;
+    }
+    setTextPos(diff, 'posX');
+    renderCanvas();
+}
+
+function onToggleStroke() {
+    toggleStroke();
+    renderCanvas();
+}
+
+function onChangeColor(type, val) {
+    changeColor(type, val);
+    renderCanvas();
+}
+
+function onChangeFont(val) {
+    changeFont(val);
+    renderCanvas();
+}
+
+function downloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL()
+    elLink.href = data
 }
