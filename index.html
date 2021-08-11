@@ -10,14 +10,61 @@
 </head>
 
 <body>
-    <header class="header">
+    <header class="header flex space-between align-center">
         <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
         <nav class="main-nav">
-            <a href="#">Gallery</a>
+            <a href="#">Gallery <span>|</span></a>
             <a href="#">About</a>
         </nav>
     </header>
 
+    <main class="editor-container flex space-evenly align-center">
+        <canvas class="canvas" height="550px" width="550px"></canvas>
+        <div class="tools-container flex column">
+            <section class="text-tools grid">
+                <input type="text" name="text" class="text-input">
+                <button class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
+                <button class="tool-btn text-add"><img src="DESIGN/ICONS/add.png"></button>
+                <button class="tool-btn text-remove"><img src="DESIGN/ICONS/trash.png"></button>
+            </section>
+
+            <section class="style-tools grid">
+                <button class="tool-btn style-inc"><img src="DESIGN/ICONS/increase font - icon.png"></button>
+                <button class="tool-btn style-dec"><img src="DESIGN/ICONS/decrease font - icon.png"></button>
+                <button class="tool-btn style-left"><img src="DESIGN/ICONS/align-to-left.png"></button>
+                <button class="tool-btn style-center"><img src="DESIGN/ICONS/center-text-alignment.png"></button>
+                <button class="tool-btn style-right"><img src="DESIGN/ICONS/align-to-right.png"></button>
+                <button class="tool-btn style-stroke"><img src="DESIGN/ICONS/text stroke.png"></button>
+                <button class="tool-btn style-color"><img src="DESIGN/ICONS/paint-board-and-brush.png"></button>
+                <select class="select-font">
+                    <option>font1</option>
+                    <option>font2</option>
+                    <option>font3</option>
+                </select>
+            </section>
+
+            <section class="emoji-tools grid">
+                <select>
+                    <option>emoji1</option>
+                    <option>emoji2</option>
+                    <option>emoji3</option>
+                </select>
+            </section>
+
+            <section class="btns flex space-between">
+                <button class="tool-btn download">Download</button>
+                <button class="tool-btn share">Share</button>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer flex align-center justify-center">
+        <div class="footer-content">
+            <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
+            <p>all rights reserved 2021 © not to me cause I copied</p>
+        </div>
+    </footer>
 
     <script src="js/util.js"></script>
     <script src="js/editor-service.js"></script>

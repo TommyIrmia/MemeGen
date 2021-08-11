@@ -10,18 +10,48 @@
     src: url(../fonts/montserrat/Montserrat-Regular.ttf);
 }
 
-a {
-    text-decoration: none;
-    color: white;
+@font-face {
+    font-family: mont-thin;
+    src: url(../fonts/montserrat/Montserrat-Thin.ttf);
 }
 
 
 /* BASE */
 
 body {
-    margin: 0 auto;
+    color: white;
+    margin: 0;
     font-family: mont, sans-serif;
     /* background-color: orange; */
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+p {
+    margin: 0 auto;
+}
+
+input,
+select {
+    font-family: mont, sans-serif;
+    border: none;
+    padding: 0px 30px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+}
+
+button {
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+button:hover {
+    opacity: 0.7;
 }
 
 
@@ -29,4 +59,185 @@ body {
 
 .header {
     background-color: #ff7f00;
+    height: 4.125rem;
+    padding: 0 3.125rem;
+    font-size: 1.1875rem;
+}
+
+.header span {
+    color: #adabab;
+    font-size: 2rem;
+    font-family: mont-thin;
+}
+
+
+/* EDITOR-CONTAINER */
+
+.editor-container {
+    padding: 25px 50px;
+    background-color: #e3e3e3;
+}
+
+
+/* canvas */
+
+.editor-container .canvas {
+    background-color: white;
+    margin-inline-end: 70px;
+}
+
+.editor-container .tools-container {
+    width: 375px;
+}
+
+
+/* tools-container */
+
+.tools-container .tool-btn {
+    height: 3.75rem;
+    width: 3.75rem;
+}
+
+.tools-container .tool-btn img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+
+/* text-tools */
+
+.tools-container .text-tools {
+    gap: 10px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: "input input input input input" ". btn1 btn2 btn3 ."
+}
+
+.text-input {
+    grid-area: input;
+}
+
+.text-choose {
+    grid-area: btn1;
+}
+
+.text-add {
+    grid-area: btn2;
+}
+
+.text-remove {
+    grid-area: btn3;
+}
+
+
+/* style tools */
+
+.tools-container .style-tools {
+    margin-top: 40px;
+    gap: 10px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: "btn1 btn2 btn3 btn4 btn5" "select select select btn6 btn7"
+}
+
+.style-inc {
+    grid-area: btn1;
+}
+
+.style-dec {
+    grid-area: btn2;
+}
+
+.style-left {
+    grid-area: btn3;
+}
+
+.style-center {
+    grid-area: btn4;
+}
+
+.style-right {
+    grid-area: btn5;
+}
+
+.style-stroke {
+    grid-area: btn6;
+}
+
+.style-color {
+    grid-area: btn7;
+}
+
+.select-font {
+    grid-area: select;
+}
+
+
+/* emojis & btns*/
+
+.emoji-tools {
+    margin-top: 30px;
+    height: 135px;
+}
+
+.btns {
+    margin-top: 20px;
+}
+
+.btns .download,
+.btns .share {
+    width: 7.5rem;
+    background-color: #ff7f00;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+
+/* FOOTER */
+
+.footer {
+    font-size: 1.1875rem;
+    font-family: mont-thin;
+    background-color: #ff7f00;
+    height: 12.9375rem;
+    text-align: center;
+}
+
+.footer .logo {
+    margin-bottom: 1rem;
+}
+
+
+/* HELPERS */
+
+
+/* layout helpers */
+
+.grid {
+    display: grid;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
 }
