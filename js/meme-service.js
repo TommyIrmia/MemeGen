@@ -65,8 +65,9 @@ function getImg() {
     return img.url;
 }
 
-function addText(txt) {
+function changeText(txt) {
     gMeme.lines[0].txt = txt;
+    console.log(gMeme.lines[0].txt);
 }
 
 function changeFontSize(size) {
