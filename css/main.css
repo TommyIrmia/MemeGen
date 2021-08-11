@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/* FONTS */
+
+
+/* BASE */
+
+body {
+    font-family: impact;
+    /* background-color: orange; */
+}
