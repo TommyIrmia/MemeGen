@@ -5,10 +5,28 @@
 
 /* FONTS */
 
+@font-face {
+    font-family: mont;
+    src: url(../fonts/montserrat/Montserrat-Regular.ttf);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
 
 /* BASE */
 
 body {
-    font-family: impact;
+    margin: 0 auto;
+    font-family: mont, sans-serif;
     /* background-color: orange; */
+}
+
+
+/* HEADER */
+
+.header {
+    background-color: #ff7f00;
 }
