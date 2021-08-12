@@ -5,10 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Knewave&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet"> -->
-
     <link rel="stylesheet" href="css/main.css">
 
     <title>MemeGen</title>
@@ -28,7 +24,7 @@
         <canvas class="canvas" height="550px" width="550px"></canvas>
         <div class="tools-container flex column">
             <section class="text-tools grid">
-                <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)">
+                <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)" autofocus>
                 <button onclick="onMoveText('up')" class="tool-btn up-btn"><img src="DESIGN/ICONS/uparrow.png"></button>
                 <button onclick="onMoveText('down')" class="tool-btn down-btn"><img src="DESIGN/ICONS/downarrow.png"></button>
                 <button onclick="onChooseText()" class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
@@ -67,9 +63,15 @@
                 </select>
             </section>
 
-            <section class="btns flex space-between">
-                <a href="#" onclick="downloadCanvas(this)" download="myMeme"><button class="tool-btn download">Download</button></a>
-                <button class="tool-btn share">Share</button>
+            <section class="btns flex">
+                <button class="tool-btn save" onclick="onSaveCanvas()">Save</button>
+                <div class="options-modal">
+                    <ul class="clean-list flex options-dropdown">
+                        <li class="item1"><button class="option-btn save-btn">Add to memes</button></li>
+                        <li class="item2"><a href="#" onclick="onDownloadCanvas(this)" download="myMeme"><button class="option-btn download-btn">Download</button></a></li>
+                        <li class="item3"><button class="option-btn face-btn">Upload</button></li>
+                    </ul>
+                </div>
             </section>
 
         </div>

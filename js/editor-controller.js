@@ -3,6 +3,7 @@
 var gElCanvas;
 var gCtx;
 var gCurrMeme = getMeme();
+var gIsSave = false;
 
 
 function addListeners() {
@@ -27,7 +28,7 @@ function onMove() {
 }
 
 function onDown(ev) {
-    console.log(ev.offsetX, ev.offsetY);
+    // createPosition()
 }
 
 function onUp() {
@@ -52,7 +53,7 @@ function drawText() {
         gCtx.fillText(line.txt, line.posX, line.posY - 5);
 
         const textWidth = gCtx.measureText(line.txt).width;
-        setLineWidth(textWidth)
+        setLineWidth(textWidth, line)
         gCtx.lineWidth = 3;
         gCtx.font = `${line.size}px ${line.font}`;
         gCtx.strokeStyle = line.color;
@@ -72,13 +73,14 @@ function renderCanvas() {
     const selectedImg = getImg();
     drawImg(selectedImg);
     setTimeout(drawText, 1);
-    setTimeout(highlightText, 1);
+    if (!gIsSave) setTimeout(highlightText, 1);
     gCtx.restore();
 
 }
 
 function highlightText() {
     const line = getLine();
+    if (!line) return;
     gCtx.beginPath()
     gCtx.lineWidth = 3;
     gCtx.rect(line.posX - 10, line.posY - line.size, line.width + 20, line.size + 10)
@@ -88,6 +90,8 @@ function highlightText() {
 
 function onAddText() {
     createLine();
+    const line = getLine();
+    document.querySelector('[name="text"]').value = line.txt;
     renderCanvas();
 }
 
@@ -135,13 +139,21 @@ function onChangeFont(val) {
     renderCanvas();
 }
 
-function downloadCanvas(elLink) {
+function onDownloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data
 }
 
+function onSaveCanvas() {
+    gIsSave = !gIsSave;
+    renderCanvas();
+    document.querySelector('.options-modal').classList.toggle('opacity');
+}
+
 function onChooseText() {
-    chooseText();
+    setLineIdx();
+    const line = getLine();
+    document.querySelector('[name="text"]').value = line.txt;
     renderCanvas();
 }
 

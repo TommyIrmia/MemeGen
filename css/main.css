@@ -111,10 +111,6 @@ button:hover {
     margin-inline-end: 70px;
 }
 
-.editor-container .tools-container {
-    width: 375px;
-}
-
 
 /* tools-container */
 
@@ -254,15 +250,92 @@ option {
 
 .btns {
     margin-top: 20px;
+    flex-direction: row-reverse;
 }
 
-.btns .download,
-.btns .share {
-    width: 7.5rem;
+.btns .save {
+    z-index: 1;
+    width: 4.5rem;
     background-color: #ff7f00;
     color: white;
     font-size: 1.25rem;
     font-weight: 500;
+    margin-inline-start: 10px;
+}
+
+.options-modal {
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.save:hover {
+    background-color: #ffa244;
+}
+
+.options-modal .option-btn {
+    width: 90px;
+    height: 60px;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.face-btn {
+    background-color: #4267B2;
+}
+
+.face-btn:hover {
+    background-color: #428fb2;
+}
+
+.save-btn {
+    background-color: #ad47a8;
+}
+
+.save-btn:hover {
+    background-color: #d65ed0;
+}
+
+.download-btn {
+    background-color: rgb(69, 160, 69);
+}
+
+.download-btn:hover {
+    background-color: rgb(109, 212, 69);
+}
+
+.options-modal .item1 {
+    right: 10px;
+    margin-inline-end: 10px;
+}
+
+.options-modal .item2 {
+    right: 110px;
+    margin-inline-end: 10px;
+}
+
+.options-modal .item3 {
+    right: 210px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 980px) {
+    .editor-container {
+        flex-direction: column;
+        height: unset;
+    }
+    .tools-container {
+        margin-top: 10px;
+        width: unset;
+    }
+    .editor-container .canvas {
+        margin-inline-end: 0;
+    }
+    .tools-container .tool-btn {
+        width: 6rem;
+    }
 }
 
 
@@ -357,6 +430,16 @@ option {
 
 /* HELPERS */
 
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.absolute {
+    position: absolute;
+}
+
 
 /* layout helpers */
 
@@ -390,4 +473,8 @@ option {
 
 .none {
     display: none;
+}
+
+.opacity {
+    opacity: 1;
 }

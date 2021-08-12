@@ -41,17 +41,44 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [{
         txt: 'Change text here',
-        size: 30,
+        size: 35,
         stroke: true,
         color: '#000000',
         fill: '#ffffff',
         font: 'impact',
-        posX: 175,
-        posY: 50
+        posX: 153,
+        posY: 70,
     }]
 }
 
-var gPositions = [{ posX: 175, posY: 75 }, { posX: 175, posY: 75 }, { posX: 175, posY: 75 }]
+
+function createLine() {
+    const pos = createPos()
+    gMeme.lines.push({
+        txt: 'Change text here',
+        size: 35,
+        stroke: true,
+        color: '#000000',
+        fill: '#ffffff',
+        font: 'impact',
+        posX: pos.x,
+        posY: pos.y,
+    })
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+}
+
+function createPos() {
+    const line = getLine();
+    const lines = getLines();
+    const topPos = { x: 153, y: 70 };
+    if (lines.length === 0) return topPos;
+
+    const bottomPos = { x: gElCanvas.width / 2 - 243 / 2, y: gElCanvas.height - line.size };
+    const centerPos = { x: gElCanvas.width / 2 - 243 / 2, y: gElCanvas.height / 2 + line.size / 2 }
+
+    if (lines.length === 1) return bottomPos;
+    if (lines.length > 1) return centerPos;
+}
 
 function getLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
@@ -84,6 +111,7 @@ function getImg() {
 function changeText(txt) {
     const line = getLine();
     line.txt = txt;
+    console.log(line.txt);
 }
 
 function changeFontSize(size) {
@@ -99,9 +127,13 @@ function setImgId(id) {
 function setTextPos(diff, pos) {
     const line = getLine();
     if (!diff) {
-        line.posX = 175;
+        line.posX = gElCanvas.width / 2 - line.width / 2;
     }
     line[pos] += diff;
+}
+
+function setLineWidth(width, line) {
+    line.width = width;
 }
 
 function toggleStroke() {
@@ -118,37 +150,18 @@ function changeColor(type, val) {
 function changeFont(val) {
     const line = getLine();
     line.font = val;
-    console.log(line.font);
 }
 
-function chooseText() {
+function setLineIdx() {
     const lines = getLines();
     gMeme.selectedLineIdx++
         if (gMeme.selectedLineIdx >= lines.length) gMeme.selectedLineIdx = 0;
-    console.log(gMeme.selectedLineIdx, lines.length);
 }
 
 function removeText() {
     const lines = getLines();
     lines.splice(gMeme.selectedLineIdx, 1);
     gMeme.selectedLineIdx = 0;
-}
-
-function createLine() {
-
-    gMeme.lines.push({
-        txt: 'Change text here',
-        size: 30,
-        stroke: true,
-        color: '#000000',
-        fill: '#ffffff',
-        font: 'impact',
-        posX: 175,
-        posY: 475,
-    })
-    gMeme.selectedLineIdx = gMeme.lines.length - 1;
-    console.log('lineidx', gMeme.selectedLineIdx);
-    console.log(gMeme.lines);
 }
 
 
