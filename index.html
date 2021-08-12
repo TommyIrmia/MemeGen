@@ -14,16 +14,16 @@
     <header class="header flex space-between align-center" onclick="resizeCanvas()">
         <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
         <nav class="main-nav flex align-center">
-            <a class="nav-item" href="#">Gallery</a>
+            <a class="nav-item" href="#" onclick="onGallery()">Gallery</a>
             <div class="seperator"></div>
             <a class="nav-item" href="#">About</a>
         </nav>
     </header>
 
     <main class="editor-container flex justify-center align-center">
-        <div class="canvas-container">
-            <canvas class="canvas" height="550px" width="550px"></canvas>
-        </div>
+        <!-- <div class="canvas-container"> -->
+        <canvas class="canvas" height="550px" width="550px"></canvas>
+        <!-- </div> -->
         <div class="tools-container flex column">
             <section class="text-tools grid">
                 <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)" autofocus>

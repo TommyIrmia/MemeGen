@@ -96,7 +96,8 @@ button:hover {
 /* EDITOR-CONTAINER */
 
 .editor-container {
-    padding: 25px 50px;
+    /* padding: 0px 50px; */
+    padding: 20px 20px;
     background-color: #e3e3e3;
     display: none;
     height: 75vh;
@@ -105,13 +106,9 @@ button:hover {
 
 /* canvas */
 
-.editor-container .canvas-container {
-    background-color: white;
+.editor-container .canvas {
+    background-color: #e3e3e3;
     margin-inline-end: 70px;
-}
-
-.canvas {
-    /* background-size: contain; */
 }
 
 
@@ -333,12 +330,12 @@ option {
         margin-top: 10px;
         width: unset;
     }
-    .editor-container .canvas-container {
+    .editor-container .canvas {
         margin-inline-end: 0;
-        width: 80vw;
+        /* width: 80vw; */
     }
     .tools-container .tool-btn {
-        width: 6rem;
+        width: 5rem;
     }
 }
 
@@ -349,7 +346,6 @@ option {
     .tools-container .tool-btn {
         width: 3.5rem;
     }
-    .tools-container .text-tools {}
 }
 
 

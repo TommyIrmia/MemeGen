@@ -46,11 +46,17 @@ var gMeme = {
         color: '#000000',
         fill: '#ffffff',
         font: 'impact',
-        posX: 153,
+        posX: getCanvasSize() / 2 - 234 / 2,
         posY: 70,
     }]
 }
 
+
+function getCanvasSize() {
+    if (window.innerWidth > 980) return 550;
+    else if (window.innerWidth > 650) return 450
+    else return 365;
+}
 
 function createLine() {
     const pos = createPos()
@@ -119,6 +125,10 @@ function changeFontSize(size) {
     line.size += size;
 }
 
+function setUserSelection() {
+    isSelectedImg = false;
+}
+
 function setImgId(id) {
     gMeme.selectedImgId = id;
     isSelectedImg = true;
@@ -163,10 +173,6 @@ function removeText() {
     lines.splice(gMeme.selectedLineIdx, 1);
     gMeme.selectedLineIdx = 0;
 }
-
-
-
-
 
 
 function uploadImg() {
