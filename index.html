@@ -24,16 +24,16 @@
         </nav>
     </header>
 
-    <main class="editor-container flex space-evenly align-center">
+    <main class="editor-container flex justify-center align-center">
         <canvas class="canvas" height="550px" width="550px"></canvas>
         <div class="tools-container flex column">
             <section class="text-tools grid">
                 <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)">
                 <button onclick="onMoveText('up')" class="tool-btn up-btn"><img src="DESIGN/ICONS/uparrow.png"></button>
                 <button onclick="onMoveText('down')" class="tool-btn down-btn"><img src="DESIGN/ICONS/downarrow.png"></button>
-                <button class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
+                <button onclick="onChooseText()" class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
                 <button onclick="onAddText()" class="tool-btn text-add"><img src="DESIGN/ICONS/add.png"></button>
-                <button class="tool-btn text-remove"><img src="DESIGN/ICONS/trash.png"></button>
+                <button onclick="onRemoveText()" class="tool-btn text-remove"><img src="DESIGN/ICONS/trash.png"></button>
             </section>
 
             <section class="style-tools grid">
@@ -52,10 +52,10 @@
                 </div>
 
                 <select class="select-font" onchange="onChangeFont(this.value)">
-                    <option value="impact">Impact</option>
-                    <option value="bangers">Bangers</option>
-                    <option value="knewave">Knewave</option>
-                    <option value="sigmar">Sigmar</option>
+                    <option name="impact" value="impact">Impact</option>
+                    <option name="bangers" value="bangers">Bangers</option>
+                    <option name="knewave" value="knewave">Knewave</option>
+                    <option name="sigmar" value="sigmar">Sigmar</option>
                 </select>
             </section>
 

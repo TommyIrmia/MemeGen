@@ -1,5 +1,24 @@
 'use strict';
 
+
+function onInit() {
+    if (isUserSelected()) {
+        gElCanvas = document.querySelector('canvas');
+        gCtx = gElCanvas.getContext('2d');
+        addListeners()
+
+        renderCanvas()
+
+        const line = getLine();
+        document.querySelector('[name="text"]').value = line.txt;
+        document.querySelector('.editor-container').classList.remove('none');
+    } else {
+        document.querySelector('.editor-container').classList.add('none');
+        renderGallery();
+    }
+
+}
+
 function renderGallery() {
     let id = 0;
     const imgs = getImgs();
@@ -12,9 +31,6 @@ function renderGallery() {
     elGallery.innerHTML = strHTMLs.join('');
 }
 
-function renderImg(img) {
-    console.log(img);
-}
 
 function onChooseImg(id) {
     setImgId(id);

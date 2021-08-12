@@ -99,6 +99,7 @@ button:hover {
     padding: 25px 50px;
     background-color: #e3e3e3;
     display: none;
+    height: 75vh;
 }
 
 
@@ -217,6 +218,30 @@ button:hover {
     top: 0;
     width: 100%;
     height: 100%;
+}
+
+option {
+    height: 1.5rem;
+    background-color: yellow;
+}
+
+.select-font [name="impact"] {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.select-font [name="bangers"] {
+    font-family: bangers;
+    height: 1.5rem;
+}
+
+.select-font [name="knewave"] {
+    font-family: knewave;
+    height: 1.5rem;
+}
+
+.select-font [name="sigmar"] {
+    font-family: sigmar;
+    height: 1.5rem;
 }
 
 

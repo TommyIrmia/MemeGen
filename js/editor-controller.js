@@ -5,24 +5,6 @@ var gCtx;
 var gCurrMeme = getMeme();
 
 
-function onInit() {
-    if (isUserSelected()) {
-        gElCanvas = document.querySelector('canvas');
-        gCtx = gElCanvas.getContext('2d');
-        addListeners()
-
-        renderCanvas()
-
-        const line = getLine();
-        document.querySelector('[name="text"]').value = line.txt;
-        document.querySelector('.editor-container').classList.remove('none');
-    } else {
-        document.querySelector('.editor-container').classList.add('none');
-        renderGallery();
-    }
-
-}
-
 function addListeners() {
     addMouseListeners();
     addTouchListeners();
@@ -45,7 +27,7 @@ function onMove() {
 }
 
 function onDown(ev) {
-    // drawText('Dogs', 100, 100)
+    console.log(ev.offsetX, ev.offsetY);
 }
 
 function onUp() {
@@ -61,18 +43,23 @@ function drawImg(selectedImg) {
 }
 
 function drawText() {
-    const line = getLine();
-    console.log(line.font);
-    gCtx.fillStyle = 'gray'
-    gCtx.font = `${line.size}px ${line.font}`;
-    gCtx.fillText(line.txt, line.posX, line.posY - 5);
+    const lines = getLines();
 
-    gCtx.lineWidth = 3;
-    gCtx.strokeStyle = line.color;
-    gCtx.fillStyle = line.fill;
-    gCtx.font = `${line.size}px ${line.font}`;
-    gCtx.fillText(line.txt, line.posX, line.posY);
-    if (line.stroke) gCtx.strokeText(line.txt, line.posX, line.posY);
+    lines.forEach(line => {
+
+        gCtx.font = `${line.size}px ${line.font}`;
+        gCtx.fillStyle = 'gray'
+        gCtx.fillText(line.txt, line.posX, line.posY - 5);
+
+        const textWidth = gCtx.measureText(line.txt).width;
+        setLineWidth(textWidth)
+        gCtx.lineWidth = 3;
+        gCtx.font = `${line.size}px ${line.font}`;
+        gCtx.strokeStyle = line.color;
+        gCtx.fillStyle = line.fill;
+        gCtx.fillText(line.txt, line.posX, line.posY);
+        if (line.stroke) gCtx.strokeText(line.txt, line.posX, line.posY);
+    })
 }
 
 function onChangeText(txt) {
@@ -80,28 +67,29 @@ function onChangeText(txt) {
     renderCanvas();
 }
 
-
 function renderCanvas() {
     gCtx.save();
     const selectedImg = getImg();
     drawImg(selectedImg);
     setTimeout(drawText, 1);
+    setTimeout(highlightText, 1);
     gCtx.restore();
-}
-// function onAddText() {
-//     let txt = document.querySelector('[name="text"]').value;
-//     if (!txt) {
-//         txt = gMeme.lines[0].txt;
-//         document.querySelector('[name="text"]').value = txt;
-//     } else {
-//         addText(txt);
-//     }
 
-//     gCurrMeme.lines.forEach((line) => {
-//         console.log(line);
-//         drawText(line.txt, 100, 100, line.size, line.color, line.font)
-//     })
-// }
+}
+
+function highlightText() {
+    const line = getLine();
+    gCtx.beginPath()
+    gCtx.lineWidth = 3;
+    gCtx.rect(line.posX - 10, line.posY - line.size, line.width + 20, line.size + 10)
+    gCtx.strokeStyle = 'white'
+    gCtx.stroke()
+}
+
+function onAddText() {
+    createLine();
+    renderCanvas();
+}
 
 function onFontSize(diff) {
     const size = (diff === '+') ? 2 : -2;
@@ -114,7 +102,6 @@ function onMoveText(dir) {
     setTextPos(diff, 'posY');
     renderCanvas();
 }
-
 
 function onAlignText(dir) {
     let diff;
@@ -151,4 +138,14 @@ function onChangeFont(val) {
 function downloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data
+}
+
+function onChooseText() {
+    chooseText();
+    renderCanvas();
+}
+
+function onRemoveText() {
+    removeText();
+    renderCanvas();
 }

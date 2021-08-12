@@ -47,12 +47,18 @@ var gMeme = {
         fill: '#ffffff',
         font: 'impact',
         posX: 175,
-        posY: 75
+        posY: 50
     }]
 }
 
+var gPositions = [{ posX: 175, posY: 75 }, { posX: 175, posY: 75 }, { posX: 175, posY: 75 }]
+
 function getLine() {
-    return gMeme.lines[0];
+    return gMeme.lines[gMeme.selectedLineIdx];
+}
+
+function getLines() {
+    return gMeme.lines;
 }
 
 function isUserSelected() {
@@ -76,11 +82,13 @@ function getImg() {
 }
 
 function changeText(txt) {
-    gMeme.lines[0].txt = txt;
+    const line = getLine();
+    line.txt = txt;
 }
 
 function changeFontSize(size) {
-    gMeme.lines[0].size += size;
+    const line = getLine();
+    line.size += size;
 }
 
 function setImgId(id) {
@@ -112,6 +120,40 @@ function changeFont(val) {
     line.font = val;
     console.log(line.font);
 }
+
+function chooseText() {
+    const lines = getLines();
+    gMeme.selectedLineIdx++
+        if (gMeme.selectedLineIdx >= lines.length) gMeme.selectedLineIdx = 0;
+    console.log(gMeme.selectedLineIdx, lines.length);
+}
+
+function removeText() {
+    const lines = getLines();
+    lines.splice(gMeme.selectedLineIdx, 1);
+    gMeme.selectedLineIdx = 0;
+}
+
+function createLine() {
+
+    gMeme.lines.push({
+        txt: 'Change text here',
+        size: 30,
+        stroke: true,
+        color: '#000000',
+        fill: '#ffffff',
+        font: 'impact',
+        posX: 175,
+        posY: 475,
+    })
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    console.log('lineidx', gMeme.selectedLineIdx);
+    console.log(gMeme.lines);
+}
+
+
+
+
 
 
 function uploadImg() {
