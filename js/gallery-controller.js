@@ -1,17 +1,16 @@
 'use strict';
 
-
 function onInit() {
     if (isUserSelected()) {
         gElCanvas = document.querySelector('canvas');
         gCtx = gElCanvas.getContext('2d');
         addListeners()
-
+        addEventListener('resize', resizeCanvas)
         renderCanvas()
-
         const line = getLine();
         document.querySelector('[name="text"]').value = line.txt;
         document.querySelector('.editor-container').classList.remove('none');
+        resizeCanvas();
     } else {
         document.querySelector('.editor-container').classList.add('none');
         renderGallery();

@@ -11,6 +11,19 @@ function addListeners() {
     addTouchListeners();
 }
 
+function resizeCanvas() {
+    console.log(window.innerWidth);
+    if (!gElCanvas) return;
+    if (window.innerWidth > 980) {
+        gElCanvas.width = 550;
+        gElCanvas.height = 550;
+    };
+    if (window.innerWidth < 400) return;
+    const elContainer = document.querySelector('.canvas-container');
+    gElCanvas.width = elContainer.offsetWidth
+    renderCanvas();
+}
+
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
