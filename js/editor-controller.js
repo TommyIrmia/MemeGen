@@ -180,3 +180,15 @@ function onRemoveText() {
     removeText();
     renderCanvas();
 }
+
+function onShareImg() {
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+    console.log(imgDataUrl);
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`);
+
+    }
+    doUploadImg(imgDataUrl, onSuccess);
+}

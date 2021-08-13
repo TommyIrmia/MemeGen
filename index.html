@@ -16,6 +16,8 @@
         <nav class="main-nav flex align-center">
             <a class="nav-item" href="#" onclick="onGallery()">Gallery</a>
             <div class="seperator"></div>
+            <a class="nav-item" href="#" onclick="onMeme()">Meme</a>
+            <div class="seperator"></div>
             <a class="nav-item" href="#">About</a>
         </nav>
     </header>
@@ -69,9 +71,9 @@
                 <button class="tool-btn save" onclick="onSaveCanvas()">Save</button>
                 <div class="options-modal">
                     <ul class="clean-list flex options-dropdown">
-                        <li class="item1"><button class="option-btn save-btn">Add to memes</button></li>
+                        <li class="item1"><button class="option-btn save-btn">Add</button></li>
                         <li class="item2"><a href="#" onclick="onDownloadCanvas(this)" download="myMeme"><button class="option-btn download-btn">Download</button></a></li>
-                        <li class="item3"><button class="option-btn face-btn">Upload</button></li>
+                        <li class="item3"><button onclick="onShareImg()" class="option-btn face-btn">Share</button></li>
                     </ul>
                 </div>
             </section>
@@ -101,6 +103,13 @@
             </div>
         </section>
     </main>
+
+    <main class="meme-container none">
+        <h1>My Memes</h1>
+        <section class="ready-memes-container grid">
+        </section>
+    </main>
+
     <footer class="footer flex align-center justify-center">
         <div class="footer-content">
             <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>

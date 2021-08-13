@@ -21,10 +21,29 @@ function onInit() {
 
 }
 
+function onMeme() {
+    document.querySelector('.editor-container').classList.add('none');
+    document.querySelector('.gallery-container').classList.add('none');
+    document.querySelector('.meme-container').classList.remove('none');
+    renderMemes();
+}
+
 function onGallery() {
     setUserSelection();
     document.querySelector('.gallery-container').classList.remove('none');
     onInit();
+}
+
+function renderMemes() {
+    let id = 0;
+    const imgs = getImgs();
+    var strHTMLs = imgs.map((img) => {
+        id++;
+        return `<div class="img" onclick="onChooseImg(${id})"><img src="imgs/meme-imgs/${id}.jpg" alt=""></div>`
+    });
+
+    const elGallery = document.querySelector('.ready-memes-container');
+    elGallery.innerHTML = strHTMLs.join('');
 }
 
 function renderGallery() {

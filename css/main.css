@@ -75,6 +75,14 @@ button:hover {
     background-color: lightgray;
 }
 
+h1,
+h2,
+h3,
+h4.h5,
+h6 {
+    margin: 0;
+}
+
 
 /* HEADER */
 
@@ -366,6 +374,7 @@ option {
 .gallery-container .search-bar input {
     border-radius: unset;
     font-weight: 500;
+    padding: 0 10px;
 }
 
 .gallery-container .search {
@@ -430,6 +439,37 @@ option {
     .imgs-container .img {
         width: 150px;
     }
+}
+
+
+/* Meme container */
+
+.meme-container {
+    text-align: center;
+    background-color: darkgray;
+}
+
+.meme-container h1 {
+    padding: 30px 0;
+}
+
+.meme-container .ready-memes-container {
+    padding: 25px 50px;
+    background-color: #e3e3e3;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.ready-memes-container .img {
+    width: 350px;
+    cursor: pointer;
+}
+
+.ready-memes-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 
