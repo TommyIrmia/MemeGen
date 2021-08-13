@@ -11,111 +11,113 @@
 </head>
 
 <body onload="onInit()">
-    <header class="header flex space-between align-center" onclick="resizeCanvas()">
-        <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
-        <nav class="main-nav flex align-center">
-            <a class="nav-item" href="#" onclick="onGallery()">Gallery</a>
-            <div class="seperator"></div>
-            <a class="nav-item" href="#" onclick="onMeme()">Meme</a>
-            <div class="seperator"></div>
-            <a class="nav-item" href="#">About</a>
-        </nav>
-    </header>
+    <div class="main-container flex column">
+        <header class="header flex space-between align-center" onclick="resizeCanvas()">
+            <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
+            <nav class="main-nav flex align-center">
+                <a class="nav-item" href="#" onclick="onGallery()">Gallery</a>
+                <div class="seperator"></div>
+                <a class="nav-item" href="#" onclick="onMeme()">Meme</a>
+                <div class="seperator"></div>
+                <a class="nav-item" href="#">About</a>
+            </nav>
+        </header>
 
-    <main class="editor-container flex justify-center align-center">
-        <!-- <div class="canvas-container"> -->
-        <canvas class="canvas" height="550px" width="550px"></canvas>
-        <!-- </div> -->
-        <div class="tools-container flex column">
-            <section class="text-tools grid">
-                <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)" autofocus>
-                <button onclick="onMoveText('up')" class="tool-btn up-btn"><img src="DESIGN/ICONS/uparrow.png"></button>
-                <button onclick="onMoveText('down')" class="tool-btn down-btn"><img src="DESIGN/ICONS/downarrow.png"></button>
-                <button onclick="onChooseText()" class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
-                <button onclick="onAddText()" class="tool-btn text-add"><img src="DESIGN/ICONS/add.png"></button>
-                <button onclick="onRemoveText()" class="tool-btn text-remove"><img src="DESIGN/ICONS/trash.png"></button>
-            </section>
+        <main class="editor-container flex justify-center align-center">
+            <!-- <div class="canvas-container"> -->
+            <canvas class="canvas" height="550px" width="550px"></canvas>
+            <!-- </div> -->
+            <div class="tools-container flex column">
+                <section class="text-tools grid">
+                    <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)" autofocus>
+                    <button onclick="onMoveText('up')" class="tool-btn up-btn"><img src="DESIGN/ICONS/uparrow.png"></button>
+                    <button onclick="onMoveText('down')" class="tool-btn down-btn"><img src="DESIGN/ICONS/downarrow.png"></button>
+                    <button onclick="onChooseText()" class="tool-btn text-choose"><img src="DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
+                    <button onclick="onAddText()" class="tool-btn text-add"><img src="DESIGN/ICONS/add.png"></button>
+                    <button onclick="onRemoveText()" class="tool-btn text-remove"><img src="DESIGN/ICONS/trash.png"></button>
+                </section>
 
-            <section class="style-tools grid">
-                <button onclick="onFontSize('+')" class="tool-btn style-inc"><img src="DESIGN/ICONS/increase font - icon.png"></button>
-                <button onclick="onFontSize('-')" class="tool-btn style-dec"><img src="DESIGN/ICONS/decrease font - icon.png"></button>
-                <button onclick="onAlignText('left')" class="tool-btn style-left"><img src="DESIGN/ICONS/align-to-left.png"></button>
-                <button onclick="onAlignText('center')" class="tool-btn style-center"><img src="DESIGN/ICONS/center-text-alignment.png"></button>
-                <button onclick="onAlignText('right')" class="tool-btn style-right"><img src="DESIGN/ICONS/align-to-right.png"></button>
-                <div class="color-picker" ondblclick="onToggleStroke()">
-                    <button type="button" class="tool-btn style-color"><img src="DESIGN/ICONS/text stroke.png"></button>
-                    <input type="color" value="#000000" name="color" oninput="onChangeColor('color', this.value)" />
-                </div>
-                <div class="color-picker">
-                    <button type="button" class="tool-btn style-color"><img src="DESIGN/ICONS/paint-board-and-brush.png"></button>
-                    <input type="color" value="#000000" name="color" oninput="onChangeColor('fill', this.value)" />
-                </div>
+                <section class="style-tools grid">
+                    <button onclick="onFontSize('+')" class="tool-btn style-inc"><img src="DESIGN/ICONS/increase font - icon.png"></button>
+                    <button onclick="onFontSize('-')" class="tool-btn style-dec"><img src="DESIGN/ICONS/decrease font - icon.png"></button>
+                    <button onclick="onAlignText('left')" class="tool-btn style-left"><img src="DESIGN/ICONS/align-to-left.png"></button>
+                    <button onclick="onAlignText('center')" class="tool-btn style-center"><img src="DESIGN/ICONS/center-text-alignment.png"></button>
+                    <button onclick="onAlignText('right')" class="tool-btn style-right"><img src="DESIGN/ICONS/align-to-right.png"></button>
+                    <div class="color-picker" ondblclick="onToggleStroke()">
+                        <button type="button" class="tool-btn style-color"><img src="DESIGN/ICONS/text stroke.png"></button>
+                        <input type="color" value="#000000" name="color" oninput="onChangeColor('color', this.value)" />
+                    </div>
+                    <div class="color-picker">
+                        <button type="button" class="tool-btn style-color"><img src="DESIGN/ICONS/paint-board-and-brush.png"></button>
+                        <input type="color" value="#000000" name="color" oninput="onChangeColor('fill', this.value)" />
+                    </div>
 
-                <select class="select-font" onchange="onChangeFont(this.value)">
+                    <select class="select-font" onchange="onChangeFont(this.value)">
                     <option name="impact" value="impact">Impact</option>
                     <option name="bangers" value="bangers">Bangers</option>
                     <option name="knewave" value="knewave">Knewave</option>
                     <option name="sigmar" value="sigmar">Sigmar</option>
                 </select>
-            </section>
+                </section>
 
-            <section class="emoji-tools grid">
-                <select>
+                <section class="emoji-tools grid">
+                    <select>
                     <option>emoji1</option>
                     <option>emoji2</option>
                     <option>emoji3</option>
                 </select>
-            </section>
+                </section>
 
-            <section class="btns flex">
-                <button class="tool-btn save" onclick="onSaveCanvas()">Save</button>
-                <div class="options-modal">
-                    <ul class="clean-list flex options-dropdown">
-                        <li class="item1"><button class="option-btn save-btn">Add</button></li>
-                        <li class="item2"><a href="#" onclick="onDownloadCanvas(this)" download="myMeme"><button class="option-btn download-btn">Download</button></a></li>
-                        <li class="item3"><button onclick="onShareImg()" class="option-btn face-btn">Share</button></li>
-                    </ul>
-                </div>
-            </section>
+                <section class="btns flex">
+                    <button class="tool-btn save" onclick="onSaveCanvas()">Save</button>
+                    <div class="options-modal">
+                        <ul class="clean-list flex options-dropdown">
+                            <li class="item1"><button class="option-btn save-btn">Add</button></li>
+                            <li class="item2"><a href="#" onclick="onDownloadCanvas(this)" download="myMeme"><button class="option-btn download-btn">Download</button></a></li>
+                            <li class="item3"><button onclick="onShareImg()" class="option-btn face-btn">Share</button></li>
+                        </ul>
+                    </div>
+                </section>
 
-        </div>
-    </main>
+            </div>
+        </main>
 
-    <main class="gallery-container">
-        <nav class="search-bar flex align-center space-between">
-            <div class="search">
-                <label for="search">
+        <main class="gallery-container">
+            <nav class="search-bar flex align-center space-between">
+                <div class="search">
+                    <label for="search">
         <input id="search" type="search" name="search" placeholder="Enter search keyword">
         <img src="DESIGN/ICONS/search-icon.png"></label>
+                </div>
+                <div class="search-words">Funny Animals Celeb</div>
+            </nav>
+
+            <section class="imgs-container grid">
+            </section>
+
+            <section class=" me flex align-center justify-center">
+                <div class="img"><img src="imgs/me.jpg"></div>
+                <div class="desc">
+                    <h2>Tommy Irmia</h2>
+                    <p>is a student at Coding Academy - Best place to become a full-stack developer. AND experience tremendous anxiety that will lead to a heart attack</p>
+                    <div><a href="$">F</a><a href="$">L</a><a href="$">G</a></div>
+                </div>
+            </section>
+        </main>
+
+        <main class="meme-container none">
+            <h1>My Memes</h1>
+            <section class="ready-memes-container grid">
+            </section>
+        </main>
+
+        <footer class="footer flex align-center justify-center">
+            <div class="footer-content">
+                <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
+                <p>all rights reserved 2021 © not to me cause I copied</p>
             </div>
-            <div class="search-words">Funny Animals Celeb</div>
-        </nav>
-
-        <section class="imgs-container grid">
-        </section>
-
-        <section class=" me flex align-center justify-center">
-            <div class="img"><img src="imgs/me.jpg"></div>
-            <div class="desc">
-                <h2>Tommy Irmia</h2>
-                <p>is a student at Coding Academy - Best place to become a full-stack developer. AND experience tremendous anxiety that will lead to a heart attack</p>
-                <div><a href="$">F</a><a href="$">L</a><a href="$">G</a></div>
-            </div>
-        </section>
-    </main>
-
-    <main class="meme-container none">
-        <h1>My Memes</h1>
-        <section class="ready-memes-container grid">
-        </section>
-    </main>
-
-    <footer class="footer flex align-center justify-center">
-        <div class="footer-content">
-            <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
-            <p>all rights reserved 2021 © not to me cause I copied</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script src="js/meme-service.js"></script>
     <script src="js/editor-controller.js"></script>

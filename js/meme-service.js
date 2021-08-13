@@ -52,7 +52,7 @@ var gMeme = {
     }]
 }
 
-var gChosenLine;
+var gChosenLine = gMeme.lines[0];
 
 
 

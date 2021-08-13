@@ -48,6 +48,7 @@ function onDown(ev) {
     setLineDrag(true);
     gStartPos = pos
     document.body.style.cursor = 'grabbing';
+    renderInput();
     renderCanvas();
 }
 
@@ -134,7 +135,6 @@ function renderCanvas() {
 
 function highlightText() {
     const line = getLine();
-    console.log(line);
     if (!line) return;
     gCtx.beginPath()
     gCtx.lineWidth = 3;
@@ -145,8 +145,7 @@ function highlightText() {
 
 function onAddText() {
     createLine();
-    const line = getLine();
-    document.querySelector('[name="text"]').value = line.txt;
+    renderInput();
     renderCanvas();
 }
 
@@ -207,12 +206,7 @@ function onSaveCanvas() {
 
 function onChooseText() {
     changeChosenLine();
-    const line = getLine();
-    if (!line) {
-        document.querySelector('[name="text"]').value = 'click on add line';
-        return;
-    }
-    document.querySelector('[name="text"]').value = line.txt;
+    renderInput()
     renderCanvas();
 }
 
@@ -231,4 +225,13 @@ function onShareImg() {
 
     }
     doUploadImg(imgDataUrl, onSuccess);
+}
+
+function renderInput() {
+    const line = getLine();
+    if (!line) {
+        document.querySelector('[name="text"]').value = 'click on add line';
+        return;
+    }
+    document.querySelector('[name="text"]').value = line.txt;
 }

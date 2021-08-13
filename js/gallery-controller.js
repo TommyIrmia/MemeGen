@@ -15,6 +15,7 @@ function onInit() {
         resizeCanvas();
         renderCanvas()
     } else {
+        document.querySelector('.meme-container').classList.add('none');
         document.querySelector('.editor-container').classList.add('none');
         renderGallery();
     }
