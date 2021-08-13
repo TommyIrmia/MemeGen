@@ -116,12 +116,14 @@ function getImg() {
 
 function changeText(txt) {
     const line = getLine();
+    if (!line) return;
     line.txt = txt;
     console.log(line.txt);
 }
 
 function changeFontSize(size) {
     const line = getLine();
+    if (!line) return;
     line.size += size;
 }
 
@@ -136,6 +138,7 @@ function setImgId(id) {
 
 function setTextPos(diff, pos) {
     const line = getLine();
+    if (!line) return;
     if (!diff) {
         line.posX = gElCanvas.width / 2 - line.width / 2;
     }
@@ -148,28 +151,32 @@ function setLineWidth(width, line) {
 
 function toggleStroke() {
     const line = getLine();
+    if (!line) return;
     line.stroke = !line.stroke;
-    console.log(line.stroke);
 }
 
 function changeColor(type, val) {
     const line = getLine();
+    if (!line) return;
     line[type] = val;
 }
 
 function changeFont(val) {
     const line = getLine();
+    if (!line) return;
     line.font = val;
 }
 
 function setLineIdx() {
     const lines = getLines();
+    if (lines.length === 0) return;
     gMeme.selectedLineIdx++
         if (gMeme.selectedLineIdx >= lines.length) gMeme.selectedLineIdx = 0;
 }
 
 function removeText() {
     const lines = getLines();
+    if (lines.length === 0) return;
     lines.splice(gMeme.selectedLineIdx, 1);
     gMeme.selectedLineIdx = 0;
 }

@@ -24,7 +24,6 @@ function onInit() {
 function onGallery() {
     setUserSelection();
     document.querySelector('.gallery-container').classList.remove('none');
-
     onInit();
 }
 

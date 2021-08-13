@@ -2,7 +2,6 @@
 
 var gElCanvas;
 var gCtx;
-var gCurrMeme = getMeme();
 var gIsSave = false;
 
 
@@ -169,6 +168,10 @@ function onSaveCanvas() {
 function onChooseText() {
     setLineIdx();
     const line = getLine();
+    if (!line) {
+        document.querySelector('[name="text"]').value = 'click on add line';
+        return;
+    }
     document.querySelector('[name="text"]').value = line.txt;
     renderCanvas();
 }
