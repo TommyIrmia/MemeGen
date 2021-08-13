@@ -3,7 +3,9 @@
 var gElCanvas;
 var gCtx;
 var gIsSave = false;
-
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
+var gStartPos;
+var gIsChosen = false;
 
 function addListeners() {
     addMouseListeners();
@@ -38,16 +40,53 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchend', onUp)
 }
 
-function onMove() {
-    // console.log('move');
+function onDown(ev) {
+    gIsChosen = true;
+    const pos = getEvPos(ev);
+
+    if (!isLineClicked(pos)) return;
+    setLineDrag(true);
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing';
+    renderCanvas();
 }
 
-function onDown(ev) {
-    // createPosition()
+function onMove(ev) {
+    if (!gIsChosen) return;
+
+    const pos = getEvPos(ev);
+    const line = getChosenLine(pos);
+    if (!line) return;
+    if (line.isDrag) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveLine(dx, dy)
+        gStartPos = pos
+        renderCanvas()
+    }
 }
 
 function onUp() {
-    // console.log('up');
+    gIsChosen = false;
+    setLineDrag(false);
+    document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
 }
 
 function drawImg(selectedImg) {
@@ -95,6 +134,7 @@ function renderCanvas() {
 
 function highlightText() {
     const line = getLine();
+    console.log(line);
     if (!line) return;
     gCtx.beginPath()
     gCtx.lineWidth = 3;
@@ -166,7 +206,7 @@ function onSaveCanvas() {
 }
 
 function onChooseText() {
-    setLineIdx();
+    changeChosenLine();
     const line = getLine();
     if (!line) {
         document.querySelector('[name="text"]').value = 'click on add line';
