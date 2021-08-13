@@ -2,16 +2,16 @@
 var gKeywords = {
     'happy': 12,
     'funny': 1,
-    'love': 1,
-    'mad': 1,
-    'awkward': 1,
-    'shock': 1,
-    'success': 1,
-    'animal': 1,
-    'baby': 1,
-    'celeb': 1,
-    'sleep': 1,
-    'scared': 1
+    'baby': 1
+        // 'mad': 1,
+        // 'awkward': 1,
+        // 'shock': 1,
+        // 'success': 1,
+        // 'animal': 1,
+        // 'baby': 1,
+        // 'celeb': 1,
+        // 'sleep': 1,
+        // 'scared': 1
 }
 
 var isSelectedImg = false;
@@ -53,8 +53,13 @@ var gMeme = {
 }
 
 var gChosenLine = gMeme.lines[0];
+var gFilterBy;
 
 
+function setFilter(filter) {
+    filter = filter.toLowerCase();
+    gFilterBy = (filter) ? filter : '';
+}
 
 function isLineClicked(clickedPos) {
     const clickedLine = getChosenLine(clickedPos);
@@ -95,6 +100,10 @@ function getCanvasSize() {
     if (window.innerWidth > 980) return 550;
     else if (window.innerWidth > 650) return 450
     else return 365;
+}
+
+function getSearchWords() {
+    return gKeywords;
 }
 
 function createLine() {
@@ -147,7 +156,11 @@ function getMeme() {
 }
 
 function getImgs() {
-    return gImgs;
+    const imgs = gImgs.filter(img => {
+        return img.keywords.includes(gFilterBy);
+    })
+    if (!imgs.length) return gImgs
+    return imgs;
 }
 
 function getImg() {

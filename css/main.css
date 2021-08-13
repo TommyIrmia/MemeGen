@@ -270,12 +270,17 @@ h6 {
 
 .btns .save {
     z-index: 1;
-    width: 4.5rem;
+    width: 4.8rem;
     background-color: #ff7f00;
-    color: white;
+    color: black;
     font-size: 1.25rem;
     font-weight: 500;
     margin-inline-start: 10px;
+}
+
+.btns .save img {
+    mix-blend-mode: multiply;
+    height: 2.5rem;
 }
 
 .options-modal {

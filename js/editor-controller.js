@@ -202,6 +202,8 @@ function onSaveCanvas() {
     gIsSave = !gIsSave;
     renderCanvas();
     document.querySelector('.options-modal').classList.toggle('opacity');
+    if (gIsSave) document.querySelector('.save').innerHTML = '▶ <img src="DESIGN/ICONS/discet.jpg">';
+    else document.querySelector('.save').innerHTML = '◀ <img src="DESIGN/ICONS/discet.jpg">';
 }
 
 function onChooseText() {

@@ -13,13 +13,29 @@ function onInit() {
         document.querySelector('.editor-container').classList.remove('none');
 
         resizeCanvas();
-        renderCanvas()
+        renderCanvas();
     } else {
         document.querySelector('.meme-container').classList.add('none');
         document.querySelector('.editor-container').classList.add('none');
         renderGallery();
+        renderSearchWords();
     }
+}
 
+function onSearch(ev) {
+    ev.preventDefault();
+    const filterBy = document.querySelector('[name="search"]').value;
+    setFilter(filterBy);
+    renderGallery();
+}
+
+function onKeySearch(filterBy) {
+    setFilter(filterBy);
+    const searchWords = getSearchWords();
+    console.log(searchWords);
+    searchWords[filterBy]++;
+    console.log(searchWords);
+    renderGallery();
 }
 
 function onMeme() {
@@ -59,9 +75,13 @@ function renderGallery() {
     elGallery.innerHTML = strHTMLs.join('');
 }
 
-
 function onChooseImg(id) {
     setImgId(id);
     document.querySelector('.gallery-container').classList.add('none');
     onInit();
+}
+
+function renderSearchWords() {
+    const searchWords = getSearchWords();
+    // document.querySelector('.search-words').innerHTML =
 }

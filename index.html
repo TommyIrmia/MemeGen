@@ -69,7 +69,7 @@
                 </section>
 
                 <section class="btns flex">
-                    <button class="tool-btn save" onclick="onSaveCanvas()">Save</button>
+                    <div class="flex align-center justify-center"><button class="tool-btn save" onclick="onSaveCanvas()">◀ <img src="DESIGN/ICONS/discet.jpg"></button></div>
                     <div class="options-modal">
                         <ul class="clean-list flex options-dropdown">
                             <li class="item1"><button class="option-btn save-btn">Add</button></li>
@@ -85,11 +85,25 @@
         <main class="gallery-container">
             <nav class="search-bar flex align-center space-between">
                 <div class="search">
-                    <label for="search">
-        <input id="search" type="search" name="search" placeholder="Enter search keyword">
-        <img src="DESIGN/ICONS/search-icon.png"></label>
+                    <form>
+                        <label for="search">
+                            <input list="search" type="search" name="search" placeholder="Enter keyword" >
+                                <datalist id="search">
+                                    <option value="Funny">
+                                    <option value="Baby">
+                                    <option value="Animal">
+                                    <option value="Awkward">
+                                    <option value="Celeb">
+                                    <option value="Shock">
+                                    <option value="Success">
+                                </datalist>
+                             <button onclick="onSearch(event)"><img src="DESIGN/ICONS/search-icon.png"></button>
+                        </label>
+                    </form>
                 </div>
-                <div class="search-words">Funny Animals Celeb</div>
+                <div class="search-words">
+                    <div onclick="onKeySearch('happy')">Happy</div>
+                </div>
             </nav>
 
             <section class="imgs-container grid">
@@ -101,16 +115,16 @@
                     <h2>Tommy Irmia</h2>
                     <p>is a student at Coding Academy - Best place to become a full-stack developer. AND experience tremendous anxiety that will lead to a heart attack</p>
                     <div class="logos flex">
-                        <a href="#">
+                        <a href="https://www.linkedin.com/in/tommyirmia/" target="_blank">
                             <div class="sn-logo flex align-center justify-center">
                                 <img src="DESIGN/ICONS/linkedin-logo.png"></div>
                         </a>
 
-                        <a href="#">
+                        <a href="https://www.facebook.com/tommy.irmia/" target="_blank">
                             <div class="sn-logo flex align-center justify-center">
                                 <img src="DESIGN/ICONS/facebook-logo.png"></div>
                         </a>
-                        <a href="#">
+                        <a href="https://github.com/TommyIrmia/" target="_blank">
                             <div class="sn-logo flex align-center justify-center">
                                 <img src="DESIGN/ICONS/github-logo.png">
                             </div>
