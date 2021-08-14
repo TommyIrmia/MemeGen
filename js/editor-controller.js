@@ -193,6 +193,11 @@ function onChangeFont(val) {
     renderCanvas();
 }
 
+function onAddImg() {
+    const data = gElCanvas.toDataURL();
+    addImg(data);
+}
+
 function onDownloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data

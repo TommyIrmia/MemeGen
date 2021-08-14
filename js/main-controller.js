@@ -54,14 +54,18 @@ function onGallery() {
 
 function renderMemes() {
     let id = 0;
-    const imgs = getImgs();
-    var strHTMLs = imgs.map((img) => {
+    const imgUrls = getSavedMemes();
+    var strHTMLs = imgUrls.map((imgUrl) => {
         id++;
-        return `<div class="img" onclick="onChooseImg(${id})"><img src="imgs/meme-imgs/${id}.jpg" alt=""></div>`
+        return `<div onclick="onOpenMemeModal(${imgUrl})" class="img"><img src="${imgUrl}" alt=""></div>`
     });
 
     const elGallery = document.querySelector('.ready-memes-container');
     elGallery.innerHTML = strHTMLs.join('');
+}
+
+function onOpenMemeModal() {
+
 }
 
 function renderGallery() {

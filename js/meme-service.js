@@ -14,9 +14,7 @@ var gKeywords = {
     'scared': 7
 }
 
-var isSelectedImg = false;
-
-var gImgs = [{ id: 1, url: '../imgs/meme-imgs/1.jpg', keywords: ['funny', 'awkward', 'celeb'] },
+var gImgs = [{ id: 1, url: 'imgs/meme-imgs/1.jpg', keywords: ['funny', 'awkward', 'celeb'] },
     { id: 2, url: 'imgs/meme-imgs/2.jpg', keywords: ['animal', 'happy', 'love'] },
     { id: 3, url: 'imgs/meme-imgs/3.jpg', keywords: ['baby', 'animal', 'sleep'] },
     { id: 4, url: 'imgs/meme-imgs/4.jpg', keywords: ['animal', 'sleep', 'funny'] },
@@ -52,8 +50,13 @@ var gMeme = {
     }]
 }
 
+const KEY = 'memesDB';
+var gSavedMemes = [];
+
+
 var gChosenLine = gMeme.lines[0];
 var gFilterBy;
+var isSelectedImg = false;
 
 
 function setFilter(filter) {
@@ -88,6 +91,11 @@ function getChosenLine(clickedPos) {
 function setLineDrag(isDrag) {
     if (!gChosenLine) return;
     gChosenLine.isDrag = isDrag
+}
+
+function getSavedMemes() {
+    const savedMemes = loadFromStorage(KEY);
+    return savedMemes;
 }
 
 function moveLine(dx, dy) {
@@ -236,7 +244,7 @@ function removeText() {
 function doUploadImg(imgDataUrl, onSuccess) {
 
     const formData = new FormData();
-    formData.append('img', imgDataUrl)
+    formData.append('img', imgDataUrl);
 
     fetch('//ca-upload.com/here/upload.php', {
             method: 'POST',
@@ -250,4 +258,9 @@ function doUploadImg(imgDataUrl, onSuccess) {
         .catch((err) => {
             console.error(err)
         })
+}
+
+function addImg(dataUrl) {
+    gSavedMemes.push(dataUrl);
+    saveToStorage(KEY, gSavedMemes);
 }
