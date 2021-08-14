@@ -88,7 +88,8 @@ function onKeySearch(filterBy) {
     const keywords = getKeywords();
     keywords[filterBy]++;
     renderGallery();
-    onToggleKeywords()
+    const elBtn = document.querySelector('.more-btn');
+    elBtn.innerText = 'More...'
     renderKeywords();
 }
 
