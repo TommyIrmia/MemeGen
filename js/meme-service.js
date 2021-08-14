@@ -1,17 +1,17 @@
 'use strict';
 var gKeywords = {
-    'happy': 12,
-    'funny': 1,
-    'baby': 1
-        // 'mad': 1,
-        // 'awkward': 1,
-        // 'shock': 1,
-        // 'success': 1,
-        // 'animal': 1,
-        // 'baby': 1,
-        // 'celeb': 1,
-        // 'sleep': 1,
-        // 'scared': 1
+    'happy': 9,
+    'funny': 15,
+    'baby': 6,
+    'mad': 8,
+    'awkward': 11,
+    'shock': 8,
+    'success': 7,
+    'animal': 15,
+    'baby': 10,
+    'celeb': 10,
+    'sleep': 6,
+    'scared': 7
 }
 
 var isSelectedImg = false;
@@ -102,7 +102,7 @@ function getCanvasSize() {
     else return 365;
 }
 
-function getSearchWords() {
+function getKeywords() {
     return gKeywords;
 }
 

@@ -19,7 +19,7 @@
                 <div class="seperator"></div>
                 <a class="nav-item" href="#" onclick="onMeme()">Meme</a>
                 <div class="seperator"></div>
-                <a class="nav-item" href="#">About</a>
+                <a class="nav-item" href="#" onclick="onToggleAboutModal()">About</a>
             </nav>
         </header>
 
@@ -87,6 +87,7 @@
                 <div class="search">
                     <form>
                         <label for="search">
+                            <button onclick="onSearch(event)"><img src="DESIGN/ICONS/search-icon.png"></button>
                             <input list="search" type="search" name="search" placeholder="Enter keyword" >
                                 <datalist id="search">
                                     <option value="Funny">
@@ -97,12 +98,12 @@
                                     <option value="Shock">
                                     <option value="Success">
                                 </datalist>
-                             <button onclick="onSearch(event)"><img src="DESIGN/ICONS/search-icon.png"></button>
                         </label>
                     </form>
                 </div>
-                <div class="search-words">
-                    <div onclick="onKeySearch('happy')">Happy</div>
+                <div class="flex align-center words-container">
+                    <div class="search-words-container flex"></div>
+                    <div class="more-btn" onclick="onToggleKeywords(this)">More...</div>
                 </div>
             </nav>
 
@@ -146,8 +147,36 @@
                 <p>all rights reserved 2021 © not to me cause I copied</p>
             </div>
         </footer>
+
+        <section class="about-modal none">
+            <div onclick="onToggleAboutModal()" class="cls-btn">X</div>
+            <section class=" me flex column align-center justify-center">
+                <div class="img"><img class="me-img" src="imgs/me.jpg"></div>
+                <div class="desc">
+                    <h2>Tommy Irmia</h2>
+                    <p>is a student at Coding Academy - Best place to become a full-stack developer. AND experience tremendous anxiety that will lead to a heart attack</p>
+                    <div class="logos flex justify-center">
+                        <a href="https://www.linkedin.com/in/tommyirmia/" target="_blank">
+                            <div class="sn-logo flex align-center justify-center">
+                                <img src="DESIGN/ICONS/linkedin-logo.png"></div>
+                        </a>
+
+                        <a href="https://www.facebook.com/tommy.irmia/" target="_blank">
+                            <div class="sn-logo flex align-center justify-center">
+                                <img src="DESIGN/ICONS/facebook-logo.png"></div>
+                        </a>
+                        <a href="https://github.com/TommyIrmia/" target="_blank">
+                            <div class="sn-logo flex align-center justify-center">
+                                <img src="DESIGN/ICONS/github-logo.png">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </section>
     </div>
 
+    <div onclick="onToggleAboutModal()" class="screen-modal"></div>
     <script src="js/meme-service.js"></script>
     <script src="js/editor-controller.js"></script>
     <script src="js/gallery-controller.js"></script>

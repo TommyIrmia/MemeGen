@@ -18,7 +18,7 @@ function onInit() {
         document.querySelector('.meme-container').classList.add('none');
         document.querySelector('.editor-container').classList.add('none');
         renderGallery();
-        renderSearchWords();
+        renderKeywords();
     }
 }
 
@@ -31,11 +31,10 @@ function onSearch(ev) {
 
 function onKeySearch(filterBy) {
     setFilter(filterBy);
-    const searchWords = getSearchWords();
-    console.log(searchWords);
-    searchWords[filterBy]++;
-    console.log(searchWords);
+    const keywords = getKeywords();
+    keywords[filterBy]++;
     renderGallery();
+    renderKeywords();
 }
 
 function onMeme() {
@@ -64,11 +63,9 @@ function renderMemes() {
 }
 
 function renderGallery() {
-    let id = 0;
     const imgs = getImgs();
     var strHTMLs = imgs.map((img) => {
-        id++;
-        return `<div class="img" onclick="onChooseImg(${id})"><img src="imgs/meme-imgs/${id}.jpg" alt=""></div>`
+        return `<div class="img" onclick="onChooseImg(${img.id})"><img src="imgs/meme-imgs/${img.id}.jpg" alt=""></div>`
     });
 
     const elGallery = document.querySelector('.imgs-container');
@@ -81,7 +78,43 @@ function onChooseImg(id) {
     onInit();
 }
 
-function renderSearchWords() {
-    const searchWords = getSearchWords();
-    // document.querySelector('.search-words').innerHTML =
+function renderKeywords() {
+    const keywords = getKeywords();
+    const keywordsArr = Object.entries(keywords);
+    var strHTMLs = keywordsArr.map(word => {
+        return `<div style="font-size:${word[1]*2}px;" class="keyword flex align-center" 
+        onclick="onKeySearch('${word[0]}')">${word[0].charAt(0).toUpperCase() + word[0].slice(1)}</div>`
+    })
+    const elSearchContainer = document.querySelector('.search-words-container');
+    elSearchContainer.innerHTML = strHTMLs.join('');
+    // onToggleKeywords();
+
+}
+
+function onToggleKeywords() {
+    const elBtn = document.querySelector('.more-btn')
+    const elKeywords = document.querySelectorAll('.keyword');
+    if (elBtn.innerText === 'More...') {
+        elKeywords.forEach(keyword => {
+            keyword.style.display = 'flex';
+        })
+        elBtn.innerText = 'Less...'
+    } else {
+        let i = 0;
+        elKeywords.forEach(keyword => {
+            i++;
+            if (window.innerWidth > 650) {
+                if (i > 5) keyword.style.display = 'none';
+            } else {
+                if (i > 3) keyword.style.display = 'none'
+            }
+        })
+        elBtn.innerText = 'More...'
+    }
+}
+
+function onToggleAboutModal() {
+    document.querySelector('.about-modal').classList.toggle('none');
+    document.body.classList.toggle('modal-open');
+
 }
