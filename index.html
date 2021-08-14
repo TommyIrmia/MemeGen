@@ -27,9 +27,7 @@
         </header>
 
         <main class="editor-container flex justify-center align-center">
-            <!-- <div class="canvas-container"> -->
             <canvas class="canvas" height="550px" width="550px"></canvas>
-            <!-- </div> -->
             <div class="tools-container flex column">
                 <section class="text-tools grid">
                     <input type="text" name="text" class="text-input" oninput="onChangeText(this.value)" autofocus>
@@ -63,12 +61,14 @@
                 </select>
                 </section>
 
-                <section class="emoji-tools grid">
-                    <select>
-                    <option>emoji1</option>
-                    <option>emoji2</option>
-                    <option>emoji3</option>
-                </select>
+                <section class="emoji-tools flex justify-center align-center">
+                    <div class="emojis-container flex">
+                        <div class="arrow">◁</div>
+                        <div class="emoji"><img src="DESIGN/ICONS/emojis/sunglasses.png"></div>
+                        <div class="emoji"><img src="DESIGN/ICONS/emojis/sunglasses.png"></div>
+                        <div class="emoji"><img src="DESIGN/ICONS/emojis/sunglasses.png"></div>
+                        <div class="arrow">▷</div>
+                    </div>
                 </section>
 
                 <section class="btns flex">
@@ -177,6 +177,18 @@
                 </div>
             </section>
         </section>
+
+        <section class="meme-modal flex justify-center align-center none">
+            <div class="meme-content-modal flex column">
+                <div class="cls-btn" onclick="onCloseMemeModal()">X</div>
+                <div class="img"></div>
+                <div class="btns-container flex space-evenly">
+                    <button onclick="onShareImg()" class="option-btn face-btn">Share</button>
+                    <a href="#" class="" onclick="onDownloadCanvas(this)" download="myMeme"><button class="option-btn download-btn">Download</button></a>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <div onclick="onToggleMenu()" class="screen-menu"></div>

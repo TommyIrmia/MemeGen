@@ -200,6 +200,7 @@ function onAddImg() {
 
 function onDownloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
+    console.log(data);
     elLink.href = data
 }
 

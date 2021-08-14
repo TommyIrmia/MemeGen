@@ -57,15 +57,25 @@ function renderMemes() {
     const imgUrls = getSavedMemes();
     var strHTMLs = imgUrls.map((imgUrl) => {
         id++;
-        return `<div onclick="onOpenMemeModal(${imgUrl})" class="img"><img src="${imgUrl}" alt=""></div>`
+        return `<div onclick="onOpenMemeModal('${imgUrl}')" class="img"><img src="${imgUrl}" alt=""></div>`
     });
 
-    const elGallery = document.querySelector('.ready-memes-container');
-    elGallery.innerHTML = strHTMLs.join('');
+    const elMemeGallery = document.querySelector('.ready-memes-container');
+    elMemeGallery.innerHTML = strHTMLs.join('');
 }
 
-function onOpenMemeModal() {
 
+function onOpenMemeModal(url) {
+    document.body.classList.remove('fade-out');
+    document.querySelector('.meme-modal').classList.remove('none');
+    document.querySelector('.meme-content-modal .img').innerHTML = `<img src="${url}">`;
+}
+
+function onCloseMemeModal() {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        document.querySelector('.meme-modal').classList.add('none');
+    }, 500)
 }
 
 function renderGallery() {
@@ -93,7 +103,6 @@ function renderKeywords() {
     })
     const elSearchContainer = document.querySelector('.search-words-container');
     elSearchContainer.innerHTML = strHTMLs.join('');
-    // onToggleKeywords();
 
 }
 
