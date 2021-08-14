@@ -41,12 +41,14 @@ function onMeme() {
     document.querySelector('.editor-container').classList.add('none');
     document.querySelector('.gallery-container').classList.add('none');
     document.querySelector('.meme-container').classList.remove('none');
+    onToggleMenu();
     renderMemes();
 }
 
 function onGallery() {
     setUserSelection();
     document.querySelector('.gallery-container').classList.remove('none');
+    onToggleMenu()
     onInit();
 }
 
@@ -116,5 +118,9 @@ function onToggleKeywords() {
 function onToggleAboutModal() {
     document.querySelector('.about-modal').classList.toggle('none');
     document.body.classList.toggle('modal-open');
+    onToggleMenu()
+}
 
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open');
 }

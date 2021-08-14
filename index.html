@@ -15,12 +15,15 @@
         <header class="header flex space-between align-center" onclick="resizeCanvas()">
             <div class="logo"><img src="DESIGN/LOGO/LOGO.png"></div>
             <nav class="main-nav flex align-center">
+                <div class="seperator"></div>
                 <a class="nav-item" href="#" onclick="onGallery()">Gallery</a>
                 <div class="seperator"></div>
                 <a class="nav-item" href="#" onclick="onMeme()">Meme</a>
                 <div class="seperator"></div>
                 <a class="nav-item" href="#" onclick="onToggleAboutModal()">About</a>
+                <div class="seperator"></div>
             </nav>
+            <div class="menu-btn none" onclick="onToggleMenu()"><img src="DESIGN/ICONS/hamburger.png"></div>
         </header>
 
         <main class="editor-container flex justify-center align-center">
@@ -176,6 +179,7 @@
         </section>
     </div>
 
+    <div onclick="onToggleMenu()" class="screen-menu"></div>
     <div onclick="onToggleAboutModal()" class="screen-modal"></div>
     <script src="js/meme-service.js"></script>
     <script src="js/editor-controller.js"></script>
