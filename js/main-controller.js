@@ -7,13 +7,13 @@ function onInit() {
 
         addListeners()
         addEventListener('resize', resizeCanvas)
-        const line = getLine();
-
-        document.querySelector('[name="text"]').value = line.txt;
-        document.querySelector('.editor-container').classList.remove('none');
-
+        resetCanvas();
+        renderInput();
+        renderEmojis();
         resizeCanvas();
         renderCanvas();
+
+        document.querySelector('.editor-container').classList.remove('none');
     } else {
         document.querySelector('.meme-container').classList.add('none');
         document.querySelector('.editor-container').classList.add('none');
@@ -22,19 +22,28 @@ function onInit() {
     }
 }
 
-function onSearch(ev) {
-    ev.preventDefault();
-    const filterBy = document.querySelector('[name="search"]').value;
-    setFilter(filterBy);
-    renderGallery();
+function onChooseImg(id) {
+    setImgId(id);
+    document.querySelector('.gallery-container').classList.add('none');
+
+    const elSaveBtn = document.querySelector('.option-btn.save-btn');
+    elSaveBtn.innerText = 'Add';
+    elSaveBtn.style.fontSize = '18px'
+    onInit();
+    document.querySelector('.save').innerHTML = '◀ <img src="DESIGN/ICONS/discet.jpg">';
+    document.querySelector('.options-modal').classList.remove('opacity');
+    gIsSave = false;
+
 }
 
-function onKeySearch(filterBy) {
-    setFilter(filterBy);
-    const keywords = getKeywords();
-    keywords[filterBy]++;
-    renderGallery();
-    renderKeywords();
+function renderGallery() {
+    const imgs = getImgs();
+    var strHTMLs = imgs.map((img) => {
+        return `<div class="img" onclick="onChooseImg(${img.id})"><img src="imgs/meme-imgs/${img.id}.jpg" alt=""></div>`
+    });
+
+    const elGallery = document.querySelector('.imgs-container');
+    elGallery.innerHTML = strHTMLs.join('');
 }
 
 function onMeme() {
@@ -53,45 +62,34 @@ function onGallery() {
 }
 
 function renderMemes() {
+    const elMemeGallery = document.querySelector('.ready-memes-container');
     let id = 0;
     const imgUrls = getSavedMemes();
+    if (!imgUrls.length) {
+        elMemeGallery.innerHTML = `<h2>No Saved Memes...</h2>`
+        return
+    }
     var strHTMLs = imgUrls.map((imgUrl) => {
         id++;
         return `<div onclick="onOpenMemeModal('${imgUrl}')" class="img"><img src="${imgUrl}" alt=""></div>`
     });
-
-    const elMemeGallery = document.querySelector('.ready-memes-container');
     elMemeGallery.innerHTML = strHTMLs.join('');
 }
 
-
-function onOpenMemeModal(url) {
-    document.body.classList.remove('fade-out');
-    document.querySelector('.meme-modal').classList.remove('none');
-    document.querySelector('.meme-content-modal .img').innerHTML = `<img src="${url}">`;
+function onSearch(ev) {
+    ev.preventDefault();
+    const filterBy = document.querySelector('[name="search"]').value;
+    setFilter(filterBy);
+    renderGallery();
 }
 
-function onCloseMemeModal() {
-    document.body.classList.add('fade-out');
-    setTimeout(() => {
-        document.querySelector('.meme-modal').classList.add('none');
-    }, 500)
-}
-
-function renderGallery() {
-    const imgs = getImgs();
-    var strHTMLs = imgs.map((img) => {
-        return `<div class="img" onclick="onChooseImg(${img.id})"><img src="imgs/meme-imgs/${img.id}.jpg" alt=""></div>`
-    });
-
-    const elGallery = document.querySelector('.imgs-container');
-    elGallery.innerHTML = strHTMLs.join('');
-}
-
-function onChooseImg(id) {
-    setImgId(id);
-    document.querySelector('.gallery-container').classList.add('none');
-    onInit();
+function onKeySearch(filterBy) {
+    setFilter(filterBy);
+    const keywords = getKeywords();
+    keywords[filterBy]++;
+    renderGallery();
+    onToggleKeywords()
+    renderKeywords();
 }
 
 function renderKeywords() {
@@ -136,4 +134,17 @@ function onToggleAboutModal() {
 
 function onToggleMenu() {
     document.body.classList.toggle('menu-open');
+}
+
+function onOpenMemeModal(url) {
+    document.body.classList.remove('fade-out');
+    document.querySelector('.meme-modal').classList.remove('none');
+    document.querySelector('.meme-content-modal .img').innerHTML = `<img src="${url}">`;
+}
+
+function onCloseMemeModal() {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+        document.querySelector('.meme-modal').classList.add('none');
+    }, 500)
 }

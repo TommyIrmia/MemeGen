@@ -34,12 +34,30 @@ var gImgs = [{ id: 1, url: 'imgs/meme-imgs/1.jpg', keywords: ['funny', 'awkward'
     { id: 18, url: 'imgs/meme-imgs/18.jpg', keywords: ['shock', 'success', 'scared'] },
 ];
 
+var gEmojis = [{ id: 1, url: 'DESIGN/ICONS/emojis/sunglasses.png' },
+    { id: 2, url: 'DESIGN/ICONS/emojis/5.jpg' },
+    { id: 3, url: 'DESIGN/ICONS/emojis/6.png' }
+];
+
 var gMeme = {
     selectedImgId: 2,
     selectedLineIdx: 0,
-    lines: [{
+    lines: [],
+    emojis: []
+}
+
+const KEY = 'memesDB';
+var gSavedMemes = getSavedMemes();
+var gChosenLine = gMeme.lines[0];
+var gFilterBy;
+var isSelectedImg = false;
+
+
+function resetCanvas() {
+    gMeme.lines = [{
         txt: 'Change text here',
         size: 35,
+        shadow: true,
         stroke: true,
         color: '#000000',
         fill: '#ffffff',
@@ -47,21 +65,51 @@ var gMeme = {
         posX: getCanvasSize() / 2 - 234 / 2,
         posY: 70,
         isDrag: false
-    }]
+    }];
+    document.querySelector('.save').innerHTML = '◀ <img src="DESIGN/ICONS/discet.jpg">';
+    changeChosenLine();
 }
 
-const KEY = 'memesDB';
-var gSavedMemes = [];
+function createEmoji(url) {
+    gMeme.emojis.push({
+        url,
+        posX: getCanvasSize() / 2 - 50 / 2,
+        posY: getCanvasSize() / 2 - 50 / 2,
+        isDrag: false
+    })
+}
 
+function createLine() {
+    const pos = createPos()
+    gMeme.lines.push({
+        txt: 'Change text here',
+        size: 35,
+        shadow: true,
+        stroke: true,
+        color: '#000000',
+        fill: '#ffffff',
+        font: 'impact',
+        posX: pos.x,
+        posY: pos.y,
+    })
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    gChosenLine = gMeme.lines[gMeme.selectedLineIdx]
+}
 
-var gChosenLine = gMeme.lines[0];
-var gFilterBy;
-var isSelectedImg = false;
+function createPos() {
+    const lines = getLines();
+    if (lines.length === 0) return { x: 153, y: 70 };
 
+    const line = getLine();
+    const bottomPos = { x: gElCanvas.width / 2 - 243 / 2, y: gElCanvas.height - line.size };
+    const centerPos = { x: gElCanvas.width / 2 - 243 / 2, y: gElCanvas.height / 2 + line.size / 2 }
 
-function setFilter(filter) {
-    filter = filter.toLowerCase();
-    gFilterBy = (filter) ? filter : '';
+    if (lines.length === 1) return bottomPos;
+    if (lines.length > 1) return centerPos;
+}
+
+function isUserSelected() {
+    return isSelectedImg;
 }
 
 function isLineClicked(clickedPos) {
@@ -88,13 +136,9 @@ function getChosenLine(clickedPos) {
     return gChosenLine;
 }
 
-function setLineDrag(isDrag) {
-    if (!gChosenLine) return;
-    gChosenLine.isDrag = isDrag
-}
-
 function getSavedMemes() {
     const savedMemes = loadFromStorage(KEY);
+    if (!savedMemes) return [];
     return savedMemes;
 }
 
@@ -110,37 +154,16 @@ function getCanvasSize() {
     else return 365;
 }
 
+function getEmojis() {
+    return gEmojis;
+}
+
 function getKeywords() {
     return gKeywords;
 }
 
-function createLine() {
-    const pos = createPos()
-    gMeme.lines.push({
-        txt: 'Change text here',
-        size: 35,
-        stroke: true,
-        color: '#000000',
-        fill: '#ffffff',
-        font: 'impact',
-        posX: pos.x,
-        posY: pos.y,
-    })
-    gMeme.selectedLineIdx = gMeme.lines.length - 1;
-    gChosenLine = gMeme.lines[gMeme.selectedLineIdx]
-}
-
-function createPos() {
-    const line = getLine();
-    const lines = getLines();
-    const topPos = { x: 153, y: 70 };
-    if (lines.length === 0) return topPos;
-
-    const bottomPos = { x: gElCanvas.width / 2 - 243 / 2, y: gElCanvas.height - line.size };
-    const centerPos = { x: gElCanvas.width / 2 - 243 / 2, y: gElCanvas.height / 2 + line.size / 2 }
-
-    if (lines.length === 1) return bottomPos;
-    if (lines.length > 1) return centerPos;
+function getEmoji() {
+    return gMeme.emojis[0]
 }
 
 function getLine() {
@@ -153,10 +176,6 @@ function getLine() {
 
 function getLines() {
     return gMeme.lines;
-}
-
-function isUserSelected() {
-    return isSelectedImg;
 }
 
 function getMeme() {
@@ -179,14 +198,14 @@ function getImg() {
     return img.url;
 }
 
-function changeText(txt) {
-    if (!gChosenLine) return;
-    gChosenLine.txt = txt;
+function setFilter(filter) {
+    filter = filter.toLowerCase();
+    gFilterBy = (filter) ? filter : '';
 }
 
-function changeFontSize(size) {
+function setLineDrag(isDrag) {
     if (!gChosenLine) return;
-    gChosenLine.size += size;
+    gChosenLine.isDrag = isDrag
 }
 
 function setUserSelection() {
@@ -198,8 +217,9 @@ function setImgId(id) {
     isSelectedImg = true;
 }
 
-function setTextPos(diff, pos) {
+function setTextPos(dir, pos) {
     if (!gChosenLine) return;
+    const diff = (dir === "up") ? -10 : 10;
     if (!diff) {
         gChosenLine.posX = gElCanvas.width / 2 - gChosenLine.width / 2;
     }
@@ -213,6 +233,11 @@ function setLineWidth(width, line) {
 function toggleStroke() {
     if (!gChosenLine) return;
     gChosenLine.stroke = !gChosenLine.stroke;
+}
+
+function toggleShadow() {
+    if (!gChosenLine) return;
+    gChosenLine.shadow = !gChosenLine.shadow;
 }
 
 function changeColor(type, val) {
@@ -233,12 +258,28 @@ function changeChosenLine() {
     gChosenLine = lines[gMeme.selectedLineIdx]
 }
 
+function changeText(txt) {
+    if (!gChosenLine) return;
+    gChosenLine.txt = txt;
+}
+
+function changeFontSize(diff) {
+    if (!gChosenLine) return;
+    const size = (diff === '+') ? 2 : -2;
+    gChosenLine.size += size;
+}
+
 function removeText() {
     const lines = getLines();
     if (lines.length === 0) return;
     lines.splice(gMeme.selectedLineIdx, 1);
     gMeme.selectedLineIdx = 0;
     gChosenLine = gMeme.lines[gMeme.selectedLineIdx]
+}
+
+function addImg(dataUrl) {
+    gSavedMemes.push(dataUrl);
+    saveToStorage(KEY, gSavedMemes);
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {
@@ -258,9 +299,4 @@ function doUploadImg(imgDataUrl, onSuccess) {
         .catch((err) => {
             console.error(err)
         })
-}
-
-function addImg(dataUrl) {
-    gSavedMemes.push(dataUrl);
-    saveToStorage(KEY, gSavedMemes);
 }

@@ -7,25 +7,30 @@ const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 var gStartPos;
 var gIsChosen = false;
 
-function addListeners() {
-    addMouseListeners();
-    addTouchListeners();
+
+function renderCanvas() {
+    gCtx.save();
+    const selectedImg = getImg();
+    drawImg(selectedImg);
+    setTimeout(drawText, 1);
+    if (!gIsSave) setTimeout(highlightText, 1);
+    gCtx.restore();
 }
 
 function resizeCanvas() {
     if (!gElCanvas) return;
-    if (window.innerWidth > 980) {
-        gElCanvas.width = 550;
-        gElCanvas.height = 550;
-    } else if (window.innerWidth > 650) {
-        gElCanvas.width = 450;
-        gElCanvas.height = 450;
-    } else {
-        gElCanvas.width = 365;
-        gElCanvas.height = 365;
-    }
     if (window.innerWidth < 330) return;
+
+    if (window.innerWidth > 980) gElCanvas.width = gElCanvas.height = 550;
+    else if (window.innerWidth > 650) gElCanvas.width = gElCanvas.height = 450;
+    else gElCanvas.width = gElCanvas.height = 365;
+
     renderCanvas();
+}
+
+function addListeners() {
+    addMouseListeners();
+    addTouchListeners();
 }
 
 function addMouseListeners() {
@@ -41,13 +46,18 @@ function addTouchListeners() {
 }
 
 function onDown(ev) {
+    if (gIsSave) {
+        document.querySelector('.canvas:hover').style.cursor = "not-allowed";
+        return;
+    }
+
     gIsChosen = true;
     const pos = getEvPos(ev);
 
     if (!isLineClicked(pos)) return;
     setLineDrag(true);
-    gStartPos = pos
-    document.body.style.cursor = 'grabbing';
+    gStartPos = pos;
+    document.querySelector('.canvas').style.cursor = 'grabbing';
     renderInput();
     renderCanvas();
 }
@@ -63,7 +73,7 @@ function onMove(ev) {
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
         moveLine(dx, dy)
-        gStartPos = pos
+        gStartPos = pos;
         renderCanvas()
     }
 }
@@ -71,7 +81,7 @@ function onMove(ev) {
 function onUp() {
     gIsChosen = false;
     setLineDrag(false);
-    document.body.style.cursor = 'grab'
+    document.querySelector('.canvas').style.cursor = 'grab'
 }
 
 function getEvPos(ev) {
@@ -102,14 +112,15 @@ function drawText() {
     const lines = getLines();
 
     lines.forEach(line => {
-
-        gCtx.font = `${line.size}px ${line.font}`;
-        gCtx.fillStyle = 'gray'
-        gCtx.fillText(line.txt, line.posX, line.posY - 5);
+        if (line.shadow) {
+            gCtx.font = `${line.size}px ${line.font}`;
+            gCtx.fillStyle = 'lightgray'
+            gCtx.fillText(line.txt, line.posX, line.posY - 5);
+        }
 
         const textWidth = gCtx.measureText(line.txt).width;
         setLineWidth(textWidth, line)
-        gCtx.lineWidth = 3;
+        gCtx.lineWidth = 2;
         gCtx.font = `${line.size}px ${line.font}`;
         gCtx.strokeStyle = line.color;
         gCtx.fillStyle = line.fill;
@@ -123,14 +134,9 @@ function onChangeText(txt) {
     renderCanvas();
 }
 
-function renderCanvas() {
-    gCtx.save();
-    const selectedImg = getImg();
-    drawImg(selectedImg);
-    setTimeout(drawText, 1);
-    if (!gIsSave) setTimeout(highlightText, 1);
-    gCtx.restore();
-
+function onToggleShadow() {
+    toggleShadow();
+    renderCanvas();
 }
 
 function highlightText() {
@@ -150,14 +156,12 @@ function onAddText() {
 }
 
 function onFontSize(diff) {
-    const size = (diff === '+') ? 2 : -2;
-    changeFontSize(size);
+    changeFontSize(diff);
     renderCanvas();
 }
 
 function onMoveText(dir) {
-    const diff = (dir === "up") ? -10 : 10;
-    setTextPos(diff, 'posY');
+    setTextPos(dir, 'posY');
     renderCanvas();
 }
 
@@ -193,25 +197,6 @@ function onChangeFont(val) {
     renderCanvas();
 }
 
-function onAddImg() {
-    const data = gElCanvas.toDataURL();
-    addImg(data);
-}
-
-function onDownloadCanvas(elLink) {
-    const data = gElCanvas.toDataURL()
-    console.log(data);
-    elLink.href = data
-}
-
-function onSaveCanvas() {
-    gIsSave = !gIsSave;
-    renderCanvas();
-    document.querySelector('.options-modal').classList.toggle('opacity');
-    if (gIsSave) document.querySelector('.save').innerHTML = '▶ <img src="DESIGN/ICONS/discet.jpg">';
-    else document.querySelector('.save').innerHTML = '◀ <img src="DESIGN/ICONS/discet.jpg">';
-}
-
 function onChooseText() {
     changeChosenLine();
     renderInput()
@@ -220,13 +205,45 @@ function onChooseText() {
 
 function onRemoveText() {
     removeText();
+    renderInput()
     renderCanvas();
+}
+
+function onSaveCanvas() {
+    gIsSave = !gIsSave;
+    if (gIsSave) document.querySelector('.save').innerHTML = '▶ <img src="DESIGN/ICONS/discet.jpg">';
+    else document.querySelector('.save').innerHTML = '◀ <img src="DESIGN/ICONS/discet.jpg">';
+    renderCanvas();
+    document.querySelector('.options-modal').classList.toggle('opacity');
+}
+
+function onDownloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL()
+    console.log(data);
+    elLink.href = data
+}
+
+function onAddImg(elBtn) {
+    if (elBtn.innerText === 'Added to Meme-Tab') return;
+
+    const data = gElCanvas.toDataURL();
+    addImg(data);
+
+    const elSaveBtn = document.querySelector('.option-btn.save-btn');
+    elSaveBtn.innerText = 'Added to Meme-Tab';
+    elSaveBtn.style.fontSize = '14px'
+}
+
+function toggleSaveBtn() {
+    const elSaveBtn = document.querySelector('.option-btn.save-btn');
+    elSaveBtn.innerText = 'Added to Meme-Tab'
+    elSaveBtn.style.fontSize = '14px'
 }
 
 function onShareImg() {
     const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
     console.log(imgDataUrl);
-    // A function to be called if request succeeds
+
     function onSuccess(uploadedImgUrl) {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`);
@@ -242,4 +259,32 @@ function renderInput() {
         return;
     }
     document.querySelector('[name="text"]').value = line.txt;
+}
+
+// SOON
+function renderEmojis() {
+    const elEmojiContainer = document.querySelector('.emojis-container');
+    const emojis = getEmojis();
+    const arrowHTML = '<div class="arrow">◁</div>';
+    const arrow2HTML = '<div class="arrow">▷</div>';
+    var strHTMLs = emojis.map(emoji => {
+        return `<div class="emoji" onclick="onAddEmoji('${emoji.url}')"><img src="${emoji.url}"></div>`;
+    })
+
+    elEmojiContainer.innerHTML = arrowHTML + strHTMLs.join('') + arrow2HTML;
+}
+
+function onAddEmoji(emojiUrl) {
+    createEmoji(emojiUrl);
+    drawEmoji();
+}
+
+function drawEmoji() {
+    // const emoji = getEmoji();
+    // var img = new Image()
+    // img.src = emoji.url;
+    // img.onload = () => {
+    //     gCtx.drawImage(img, 220, 220, 100, 100)
+    // }
+    document.querySelector('.emojis-container').innerHTML = '<h1>Soon.....</h1>'
 }
