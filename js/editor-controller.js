@@ -161,7 +161,8 @@ function onFontSize(diff) {
 }
 
 function onMoveText(dir) {
-    setTextPos(dir, 'posY');
+    const diff = (dir === "up") ? -10 : 10;
+    setTextPos(diff, 'posY');
     renderCanvas();
 }
 

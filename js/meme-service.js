@@ -48,7 +48,7 @@ var gMeme = {
 
 const KEY = 'memesDB';
 var gSavedMemes = getSavedMemes();
-var gChosenLine = gMeme.lines[0];
+var gChosenLine;
 var gFilterBy;
 var isSelectedImg = false;
 
@@ -217,9 +217,8 @@ function setImgId(id) {
     isSelectedImg = true;
 }
 
-function setTextPos(dir, pos) {
+function setTextPos(diff, pos) {
     if (!gChosenLine) return;
-    const diff = (dir === "up") ? -10 : 10;
     if (!diff) {
         gChosenLine.posX = gElCanvas.width / 2 - gChosenLine.width / 2;
     }
